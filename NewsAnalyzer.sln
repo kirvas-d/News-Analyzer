@@ -3,12 +3,31 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1E5D504A-23CD-48E1-8431-D22A061803E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core", "src\Core\NewsAnalyzer.Core\NewsAnalyzer.Core.csproj", "{5A9C5864-12DE-434A-89D8-69C652C58C88}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5A9C5864-12DE-434A-89D8-69C652C58C88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A9C5864-12DE-434A-89D8-69C652C58C88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A9C5864-12DE-434A-89D8-69C652C58C88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A9C5864-12DE-434A-89D8-69C652C58C88}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D} = {1E5D504A-23CD-48E1-8431-D22A061803E4}
+		{5A9C5864-12DE-434A-89D8-69C652C58C88} = {FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {348AC9CD-3E7B-4DE8-883B-B647FB438475}
 	EndGlobalSection
 EndGlobal
