@@ -33,26 +33,34 @@ public class RssSourceNewsLoader : ISourceNewsLoader
         }
     }
 
-    public IAsyncEnumerable<string> LoadTexts()
+    public async IAsyncEnumerable<News> LoadNewsAsync()
     {
-        foreach (var keyValue in _parserDictionary) 
+        foreach (var rssUrl in _configuration.RssUrls) 
         {
-            using var xmlReader = XmlReader.Create(keyValue.Key);
-            var feed = SyndicationFeed.Load(xmlReader);
-
-            foreach (var item in feed.Items)
+            await foreach (var news in LoadNewsFromRss(rssUrl)) 
             {
-                Console.WriteLine($"Text: {item.Title.Text}");
-                Console.WriteLine($"Type: {item.Title.Type}");
-                foreach (var link in item.Links.Where(link => !link.Uri.ToString().Contains("https:\\icdn")))
-                {
-                    Console.WriteLine($"    Type: {link.MediaType}");
-                    Console.WriteLine($"    Link: {link.Uri}");
-                    var parser = new LentaParser(htmlLoader, link.Uri.ToString());
-                    var text = parser.GetEntitys().FirstOrDefault();
-                }
-                Console.WriteLine(item.PublishDate);
-                Console.WriteLine();
+                yield return news;
+            }
+        }
+    }
+
+    private async IAsyncEnumerable<News> LoadNewsFromRss(string rssUrl) 
+    {
+        using var xmlReader = XmlReader.Create(rssUrl);
+        var feed = SyndicationFeed.Load(xmlReader);
+
+        foreach (var item in feed.Items)
+        {
+            var links = item.Links.Where(link => !link.Uri.ToString().StartsWith("https://icdn"));
+            foreach (var link in links)
+            {
+                var htmlBody = await _htmlLoader.GetHtmlBodyAsync(link.Uri.ToString());
+                var text = await _parserDictionary[rssUrl].GetTextFromBody(htmlBody);
+
+                yield return new News(_parserDictionary[rssUrl].SiteUrl,
+                                      item.Title.Text,
+                                      text,
+                                      item.PublishDate.DateTime);
             }
         }
     }
