@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core", "src\Co
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0205D766-D25B-4035-AE24-A3CE64BF33A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Core.Tests", "tests\NewsAnalyzer.Core.Tests\NewsAnalyzer.Core.Tests.csproj", "{C0A73F3C-8329-462A-AF14-F4E0478118DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core.Tests", "tests\NewsAnalyzer.Core.Tests\NewsAnalyzer.Core.Tests.csproj", "{C0A73F3C-8329-462A-AF14-F4E0478118DD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{F7A00E1E-AF7F-42EB-A3A8-8C5DA52879A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Infrastructure.EfCoreRepository", "src\Infrastructure\NewsAnalyzer.Infrastructure.EfCoreRepository\NewsAnalyzer.Infrastructure.EfCoreRepository.csproj", "{33726EFE-8A7C-4930-9F3B-EA62205154D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,10 @@ Global
 		{C0A73F3C-8329-462A-AF14-F4E0478118DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C0A73F3C-8329-462A-AF14-F4E0478118DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C0A73F3C-8329-462A-AF14-F4E0478118DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33726EFE-8A7C-4930-9F3B-EA62205154D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33726EFE-8A7C-4930-9F3B-EA62205154D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33726EFE-8A7C-4930-9F3B-EA62205154D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33726EFE-8A7C-4930-9F3B-EA62205154D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -35,6 +43,8 @@ Global
 		{FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D} = {1E5D504A-23CD-48E1-8431-D22A061803E4}
 		{5A9C5864-12DE-434A-89D8-69C652C58C88} = {FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D}
 		{C0A73F3C-8329-462A-AF14-F4E0478118DD} = {0205D766-D25B-4035-AE24-A3CE64BF33A5}
+		{F7A00E1E-AF7F-42EB-A3A8-8C5DA52879A5} = {1E5D504A-23CD-48E1-8431-D22A061803E4}
+		{33726EFE-8A7C-4930-9F3B-EA62205154D9} = {F7A00E1E-AF7F-42EB-A3A8-8C5DA52879A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {348AC9CD-3E7B-4DE8-883B-B647FB438475}
