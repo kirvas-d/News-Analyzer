@@ -19,9 +19,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Core\NewsAnalyzer.Core\NewsAnalyzer.Core.csproj" />
-    <ProjectReference Include="..\src\Infrastructure\NewsAnalyzer.Infrastructure.EfCoreRepository\NewsAnalyzer.Infrastructure.EfCoreRepository.csproj" />
-    <ProjectReference Include="..\src\Infrastructure\NewsAnalyzer.Infrastructure.RabbitMqService\NewsAnalyzer.Infrastructure.RabbitMqService.csproj" />
+    <ProjectReference Include="..\..\Core\NewsAnalyzer.Core\NewsAnalyzer.Core.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\NewsAnalyzer.Infrastructure.EfCoreRepository\NewsAnalyzer.Infrastructure.EfCoreRepository.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\NewsAnalyzer.Infrastructure.RabbitMqService\NewsAnalyzer.Infrastructure.RabbitMqService.csproj" />
   </ItemGroup>
 
 </Project>

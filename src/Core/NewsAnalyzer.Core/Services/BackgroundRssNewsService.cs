@@ -32,14 +32,18 @@ namespace NewsAnalyzer.Core.Services
 
         private async Task ExecuteLoadNewsAsync()
         {
-            await foreach (var news in _sourceNewsLoader.LoadNewsAsync())
+            var newsInfos = _sourceNewsLoader.GetNewsInfos();
+            var exsistedNews = await _newsRepository.GetWhereAsync(news => newsInfos
+                                                                         .Select(newsInfo => newsInfo.SourceName)
+                                                                         .Contains(news.SourceName));
+            var newNewsInfos = newsInfos.Where(newsInfo => !exsistedNews
+                                                          .Select(news => news.SourceName)
+                                                          .Contains(newsInfo.SourceName));
+
+            await foreach (var news in _sourceNewsLoader.LoadNewsAsync(newNewsInfos))
             {
-                var exsistedNews = await _newsRepository.FirstOrDefaultAsync(n => n.SourceName == news.SourceName);
-                if (exsistedNews == null)
-                {
-                    await _newsRepository.AddAsync(news);
-                    NewsLoaded?.Invoke(this, new NewsLoadedEventArgs { NewsId = news.Id });
-                }
+                await _newsRepository.AddAsync(news);
+                NewsLoaded?.Invoke(this, new NewsLoadedEventArgs { NewsId = news.Id });
             }
         }
     }

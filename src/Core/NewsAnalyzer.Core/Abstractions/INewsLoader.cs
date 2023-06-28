@@ -4,5 +4,7 @@ namespace NewsAnalyzer.Core.Abstractions;
 
 public interface INewsLoader
 {
-    IAsyncEnumerable<News> LoadNewsAsync();
+    IEnumerable<NewsInfo> GetNewsInfos();
+
+    IAsyncEnumerable<News> LoadNewsAsync(IEnumerable<NewsInfo> newsInfos);
 }

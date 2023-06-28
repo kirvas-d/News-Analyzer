@@ -1,14 +1,15 @@
-﻿using NewsAnalyzer.Core.Abstractions;
+﻿using Microsoft.EntityFrameworkCore;
+using NewsAnalyzer.Core.Abstractions;
 using NewsAnalyzer.Core.Models;
 using NewsAnalyzer.Core.Services;
+using NewsAnalyzer.Infrastructure.EfCoreRepository;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Models;
-using System.Reflection;
 
 namespace NewsAnalyzer.Application.NewsService.Extensions;
 
 public static class ConfigurationExnensions
 {
-    public static void AddRssSourceNewsConfiguration(this IServiceCollection services) 
+    public static void AddServicesConfiguration(this IServiceCollection services) 
     {
         var rssUrls = new List<string>() { "https://lenta.ru/rss" };
         var parsers = new List<IHtmlParser>() { new LentaHtmlParser() };
@@ -27,5 +28,7 @@ public static class ConfigurationExnensions
             QueueName = $"NewsService.NewsLoaded"
         };
         services.AddSingleton(sp => rabbitMqMessengerServiceConfiguration);
+
+        services.AddDbContext<NewsDbContext>(options => options.UseNpgsql("Host=192.168.0.171;Port=5432;Database=news_db;Username=homeserver;Password=Pechorin"), ServiceLifetime.Singleton);
     }
 }

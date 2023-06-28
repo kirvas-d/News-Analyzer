@@ -7,10 +7,6 @@ public class RssNewsLoaderConfiguration
 {
     private readonly List<(string, IHtmlParser)> _listOfParsing;
 
-    //public IEnumerable<string> RssUrls { get; init; }
-
-    //public IEnumerable<IHtmlParser> HtmlParsers { get; init; }
-
     public IEnumerable<(string, IHtmlParser)> ListOfParsing => _listOfParsing;
 
     public RssNewsLoaderConfiguration(IEnumerable<string> rssUrls, IEnumerable<IHtmlParser> htmlParsers)

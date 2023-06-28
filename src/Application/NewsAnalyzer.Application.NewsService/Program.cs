@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using NewsAnalyzer.Application.NewsService.Extensions;
 using NewsAnalyzer.Application.NewsService.Services;
 using NewsAnalyzer.Core.Abstractions;
@@ -15,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
-builder.Services.AddRssSourceNewsConfiguration();
+builder.Services.AddServicesConfiguration();
 builder.Services.AddSingleton<BackgroundRssNewsService>();
 builder.Services.AddHostedService<BackgroundRssNewsDecoratorService>();
 builder.Services.AddSingleton<IHtmlLoader, PlayWrightHtmlLoader>();
