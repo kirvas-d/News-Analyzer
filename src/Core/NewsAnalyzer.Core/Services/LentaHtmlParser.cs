@@ -4,7 +4,7 @@ using NewsAnalyzer.Core.Abstractions;
 
 namespace NewsAnalyzer.Core.Services;
 
-internal class LentaHtmlParser : IHtmlParser
+public class LentaHtmlParser : IHtmlParser
 {
     public string SiteUrl => "https://lenta.ru";
 

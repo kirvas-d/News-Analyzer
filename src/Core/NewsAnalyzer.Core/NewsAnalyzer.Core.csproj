@@ -8,12 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="7.0.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.34.0" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Repositories\" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>E:\nuget_packages\microsoft.extensions.logging.abstractions\7.0.0\lib\net6.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

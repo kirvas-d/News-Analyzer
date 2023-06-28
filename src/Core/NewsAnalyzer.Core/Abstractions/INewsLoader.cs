@@ -2,7 +2,7 @@
 
 namespace NewsAnalyzer.Core.Abstractions;
 
-public interface ISourceNewsLoader
+public interface INewsLoader
 {
     IAsyncEnumerable<News> LoadNewsAsync();
 }

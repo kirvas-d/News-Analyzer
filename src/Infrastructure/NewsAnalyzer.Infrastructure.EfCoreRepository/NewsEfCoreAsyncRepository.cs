@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NewsAnalyzer.Core.Abstractions;
 using NewsAnalyzer.Core.Models;
 
 namespace NewsAnalyzer.Infrastructure.EfCoreRepository;
 
-public class NewsEfCoreAsyncRepository : EfCoreAsyncRepository<News>
+public class NewsEfCoreAsyncRepository : EfCoreAsyncRepository<News>, INewsAsyncRepository
 {
-    public NewsEfCoreAsyncRepository(DbContext dbContext) : base(dbContext)
+    public NewsEfCoreAsyncRepository(NewsDbContext dbContext) : base(dbContext)
     {
     }
 }
