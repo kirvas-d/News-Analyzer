@@ -15,7 +15,7 @@ public class EfCoreAsyncRepository<T> : IAsyncGenericRepository<T> where T : cla
         _context = dbContext;
     }
 
-    public async Task AddAsync(T entity)
+    public virtual async Task AddAsync(T entity)
     {
         await _context.Set<T>().AddAsync(entity);
         await _context.SaveChangesAsync();
