@@ -4,5 +4,7 @@ namespace NewsAnalyzer.Infrastructure.RabbitMqService.Abstractions;
 
 public interface IMessengerConsumerService<TMessage>
 {
-    event EventHandler<MessageReceivedEventArgs<TMessage>> Received;
+    public event EventHandler<MessageReceivedEventArgs<TMessage>> Received;
+
+    public void AcknowledgeConsumeMessage(ulong DeliveryTag);
 }
