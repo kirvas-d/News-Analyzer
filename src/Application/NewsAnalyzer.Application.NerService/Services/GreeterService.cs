@@ -1,7 +1,7 @@
 using Grpc.Core;
-using NewsAnalyzer.Application.NewsService;
+using NewsAnalyzer.Application.NerService;
 
-namespace NewsAnalyzer.Application.NewsService.Services
+namespace NewsAnalyzer.Application.NerService.Services
 {
     public class GreeterService : Greeter.GreeterBase
     {

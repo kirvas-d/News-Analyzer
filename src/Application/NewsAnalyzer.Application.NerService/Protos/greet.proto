@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "NewsAnalyzer.Application.NewsService";
+option csharp_namespace = "NewsAnalyzer.Application.NerService";
 
 package greet;
 

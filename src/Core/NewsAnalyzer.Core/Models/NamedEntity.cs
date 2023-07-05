@@ -6,5 +6,5 @@ public class NamedEntity
 
     public string Value { get; init; }
 
-    public IReadOnlyList<NamedEntiryForm>? namedEntiryForms { get; init; }
+    public IReadOnlyList<NamedEntityForm>? NamedEntityForms { get; init; }
 }

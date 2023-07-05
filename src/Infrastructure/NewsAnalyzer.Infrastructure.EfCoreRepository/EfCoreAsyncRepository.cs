@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 
 namespace NewsAnalyzer.Infrastructure.EfCoreRepository;
 
-public class EfCoreAsyncRepository<T> : IAsyncGenericRepository<T> where T : class
+public class EfCoreAsyncRepository<TEntity, TId> : IAsyncGenericRepository<TEntity, TId> where TEntity : class
 {
 
     protected DbContext _context;
@@ -15,50 +15,50 @@ public class EfCoreAsyncRepository<T> : IAsyncGenericRepository<T> where T : cla
         _context = dbContext;
     }
 
-    public virtual async Task AddAsync(T entity)
+    public virtual async Task AddAsync(TEntity entity)
     {
-        await _context.Set<T>().AddAsync(entity);
+        await _context.Set<TEntity>().AddAsync(entity);
         await _context.SaveChangesAsync();
     }
 
-    public async Task AddRangeAsync(IEnumerable<T> entities)
+    public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities)
     {
-        await _context.Set<T>().AddRangeAsync(entities);
+        await _context.Set<TEntity>().AddRangeAsync(entities);
         await _context.SaveChangesAsync();
     }
 
-    public async Task<int> CountAllAsync()
+    public virtual async Task<int> CountAllAsync()
     {
-        return await _context.Set<T>().CountAsync();
+        return await _context.Set<TEntity>().CountAsync();
     }
 
-    public async Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate)
+    public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _context.Set<T>().FirstOrDefaultAsync(predicate);
+        return await _context.Set<TEntity>().FirstOrDefaultAsync(predicate);
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public virtual async Task<IEnumerable<TEntity>> GetAllAsync()
     {
-        return await _context.Set<T>().ToListAsync();
+        return await _context.Set<TEntity>().ToListAsync();
     }
 
-    public async Task<T?> GetByIdAsync(int id) 
+    public virtual async Task<TEntity?> GetByIdAsync(TId id) 
     {
-        return await _context.Set<T>().FindAsync(id).AsTask();
+        return await _context.Set<TEntity>().FindAsync(id).AsTask();
     }
 
-    public async Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate)
+    public virtual async Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate)
     {
-        return await _context.Set<T>().Where(predicate).ToListAsync();
+        return await _context.Set<TEntity>().Where(predicate).ToListAsync();
     }
 
-    public Task RemoveAsync(T entity)
+    public virtual Task RemoveAsync(TEntity entity)
     {
-        _context.Set<T>().Remove(entity);
+        _context.Set<TEntity>().Remove(entity);
         return _context.SaveChangesAsync();
     }
 
-    public Task UpdateAsync(T entity)
+    public virtual Task UpdateAsync(TEntity entity)
     {
         _context.Entry(entity).State = EntityState.Modified;
         return _context.SaveChangesAsync();

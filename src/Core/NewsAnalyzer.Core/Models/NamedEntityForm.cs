@@ -12,17 +12,14 @@ public class NamedEntityForm
 
     public IReadOnlyCollection<Guid> NewsIds => _newsIds;
 
-    public NamedEntityForm(Guid id, string value, Guid newsId) 
+    public NamedEntityForm(Guid id, string value,  IEnumerable<Guid> newsIds) 
     {
         Id = id;
         Value = value;
-        _newsIds = new HashSet<Guid>
-        {
-            newsId
-        };
+        _newsIds = new HashSet<Guid>(newsIds);
     }
 
-    public NamedEntityForm(string value, Guid newsId) : this(Guid.NewGuid(), value, newsId)
+    public NamedEntityForm(string value, IReadOnlyCollection<Guid> newsIds) : this(Guid.NewGuid(), value, newsIds)
     { }
 
     public void AddNewsId(Guid newsId) 

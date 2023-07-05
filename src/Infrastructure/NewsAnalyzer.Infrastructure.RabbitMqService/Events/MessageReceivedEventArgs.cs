@@ -2,7 +2,7 @@
 {
     public class MessageReceivedEventArgs<TMessage> : EventArgs
     {
-        ulong DeliveryTag { get; init; }
+        public ulong DeliveryTag { get; init; }
         public TMessage Message { get; init;}
     }
 }

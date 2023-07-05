@@ -2,6 +2,6 @@
 
 namespace NewsAnalyzer.Core.Abstractions;
 
-public interface INewsAsyncRepository : IAsyncGenericRepository<News>
+public interface INewsAsyncRepository : IAsyncGenericRepository<News, Guid>
 {
 }

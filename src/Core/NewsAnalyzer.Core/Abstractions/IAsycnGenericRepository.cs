@@ -2,23 +2,23 @@
 
 namespace NewsAnalyzer.Core.Abstractions;
 
-public interface IAsyncGenericRepository<T> where T : class
+public interface IAsyncGenericRepository<TEntity, TId> where TEntity : class
 {
-    Task<T?> GetByIdAsync(int id);
+    Task<TEntity?> GetByIdAsync(TId id);
 
-    Task<IEnumerable<T>> GetAllAsync();
+    Task<IEnumerable<TEntity>> GetAllAsync();
 
-    Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate);
+    Task<IEnumerable<TEntity>> GetWhereAsync(Expression<Func<TEntity, bool>> predicate);
 
-    Task<T?> FirstOrDefaultAsync(Expression<Func<T, bool>> predicate);
+    Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate);
 
-    Task AddAsync(T entity);
+    Task AddAsync(TEntity entity);
 
-    Task AddRangeAsync(IEnumerable<T> entities);
+    Task AddRangeAsync(IEnumerable<TEntity> entities);
 
-    Task RemoveAsync(T entity);
+    Task RemoveAsync(TEntity entity);
 
-    Task UpdateAsync(T entity);
+    Task UpdateAsync(TEntity entity);
 
     Task<int> CountAllAsync();
 }

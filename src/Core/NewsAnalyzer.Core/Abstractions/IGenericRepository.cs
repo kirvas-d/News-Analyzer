@@ -2,23 +2,23 @@
 
 namespace NewsAnalyzer.Core.Abstractions;
 
-public interface IGenericRepository<T> where T : class
+public interface IGenericRepository<TEntity, TId> where TEntity : class
 {
-    T GetById(int id);
+    TEntity GetById(TId id);
 
-    IEnumerable<T> GetAll();
+    IEnumerable<TEntity> GetAll();
 
-    IEnumerable<T> GetWhereA(Expression<Func<T, bool>> predicate);
+    IEnumerable<TEntity> GetWhereA(Expression<Func<TEntity, bool>> predicate);
 
-    T FirstOrDefault(Expression<Func<T, bool>> predicate);
+    TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
 
-    void Add(T entity);
+    void Add(TEntity entity);
 
-    void AddRange(IEnumerable<T> entities);
+    void AddRange(IEnumerable<TEntity> entities);
 
-    void Remove(T entity);
+    void Remove(TEntity entity);
 
-    void Update(T entity);
+    void Update(TEntity entity);
 
     int CountAll();
 }

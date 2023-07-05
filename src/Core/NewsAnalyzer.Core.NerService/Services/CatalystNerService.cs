@@ -29,7 +29,7 @@ public class CatalystNerService : INerService
         var namedEntityFormValueComparer = new NamedEntityFormValueComparer();
         var hashSet = new HashSet<NamedEntityForm>(doc
             .SelectMany(span => span.GetEntities())
-            .Select(entity => new NamedEntityForm(entity.Value, news.Id)), namedEntityFormValueComparer);
+            .Select(entity => new NamedEntityForm(entity.Value, new List<Guid> { news.Id })), namedEntityFormValueComparer);
 
         return hashSet;
     }

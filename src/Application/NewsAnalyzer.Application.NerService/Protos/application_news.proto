@@ -1,0 +1,24 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "NewsAnalyzer.Application.NewsService";
+
+import "google/protobuf/timestamp.proto";
+
+package application_news;
+
+service ApplicationNews {
+
+  rpc GetNews (NewsRequest) returns (NewsResponse);
+}
+
+message NewsRequest {
+  string id = 1;
+}
+
+message NewsResponse {
+  string id = 1;
+  string source_name = 2;
+  string title = 3;
+  string text = 4;
+  google.protobuf.Timestamp publish_date = 5;
+}

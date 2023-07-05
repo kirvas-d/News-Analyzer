@@ -3,7 +3,6 @@ using RabbitMQ.Client;
 using System.Text;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Models;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Abstractions;
-using System.Threading.Channels;
 using System.Text.Json;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Events;
 
@@ -14,7 +13,7 @@ public class RabbitMqMessengerService<TMessage> : IMessengerPublishService<TMess
     private readonly IConnection _connection;
     private readonly IModel _channel;
     private readonly RabbitMqMessengerServiceConfiguration _configuration;
-    private AsyncEventingBasicConsumer _consumer;
+    private AsyncEventingBasicConsumer? _consumer;
     private Abstractions.AsyncEventHandler<TMessage> _received;
 
     public event Abstractions.AsyncEventHandler<TMessage> Received 
@@ -60,6 +59,7 @@ public class RabbitMqMessengerService<TMessage> : IMessengerPublishService<TMess
                              routingKey: _configuration.QueueName,
                              basicProperties: null,
                              body: body);
+        _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
     }
 
     public void Dispose()
@@ -79,8 +79,7 @@ public class RabbitMqMessengerService<TMessage> : IMessengerPublishService<TMess
     {
         var jsonString = Encoding.UTF8.GetString(@event.Body.ToArray());
         TMessage? message = JsonSerializer.Deserialize<TMessage>(jsonString);
-        //_received.InvokeAsync(this, new MessageReceivedEventArgs<TMessage> { Message = message });
-        await InvokeAsync(_received, this, new MessageReceivedEventArgs<TMessage> { Message = message });
+        await InvokeAsync(_received, this, new MessageReceivedEventArgs<TMessage> { Message = message, DeliveryTag = @event.DeliveryTag});
     }
 
     private async Task InvokeAsync(Abstractions.AsyncEventHandler<TMessage> eventHandler, object sender, MessageReceivedEventArgs<TMessage> e)
