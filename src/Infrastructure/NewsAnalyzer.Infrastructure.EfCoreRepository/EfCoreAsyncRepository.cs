@@ -1,5 +1,4 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NewsAnalyzer.Core.Abstractions;
 using System.Linq.Expressions;
 

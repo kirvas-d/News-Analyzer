@@ -2,7 +2,7 @@
 using NewsAnalyzer.Core.Abstractions;
 using NewsAnalyzer.Core.Models;
 using NewsAnalyzer.Core.Services;
-using NewsAnalyzer.Infrastructure.EfCoreRepository;
+using NewsAnalyzer.Infrastructure.EfCoreRepository.NewsRepository;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Models;
 
 namespace NewsAnalyzer.Application.NewsService.Extensions;

@@ -3,7 +3,7 @@ using NewsAnalyzer.Application.NewsService.Services;
 using NewsAnalyzer.Core.Abstractions;
 using NewsAnalyzer.Core.Events;
 using NewsAnalyzer.Core.Services;
-using NewsAnalyzer.Infrastructure.EfCoreRepository;
+using NewsAnalyzer.Infrastructure.EfCoreRepository.NewsRepository;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Abstractions;
 using NewsAnalyzer.Infrastructure.RabbitMqService.Services;
 

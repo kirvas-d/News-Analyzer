@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsAnalyzer.Core.Models;
 
-namespace NewsAnalyzer.Infrastructure.EfCoreRepository;
+namespace NewsAnalyzer.Infrastructure.EfCoreRepository.NewsRepository;
 
 public class NewsDbContext : DbContext
 {

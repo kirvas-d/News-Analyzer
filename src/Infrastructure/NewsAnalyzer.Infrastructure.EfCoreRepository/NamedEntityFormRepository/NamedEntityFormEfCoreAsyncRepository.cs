@@ -7,7 +7,7 @@ using NewsAnalyzer.Infrastructure.EfCoreRepository.Mapping;
 using NewsAnalyzer.Infrastructure.EfCoreRepository.Models;
 using System.Linq.Expressions;
 
-namespace NewsAnalyzer.Infrastructure.EfCoreRepository;
+namespace NewsAnalyzer.Infrastructure.EfCoreRepository.NamedEntityFormRepository;
 
 //EfCoreAsyncRepository<NamedEntityForm, Guid>,
 public class NamedEntityFormEfCoreAsyncRepository : INamedEntityFormAsyncRepository
@@ -45,8 +45,8 @@ public class NamedEntityFormEfCoreAsyncRepository : INamedEntityFormAsyncReposit
                              && Equals(nameof(newsIdEntity.NewsId), newsId));
 
                 if (existingEntity == null)
-                { 
-                   node.Entry.State = EntityState.Modified;
+                {
+                    node.Entry.State = EntityState.Modified;
                 }
                 else
                 {
@@ -89,7 +89,7 @@ public class NamedEntityFormEfCoreAsyncRepository : INamedEntityFormAsyncReposit
         return _mapper.Map<NamedEntityForm>(namedEntityDb);
     }
 
-    public async Task<IEnumerable<NamedEntityForm>?> GetByValueAsync(IEnumerable<string> values) 
+    public async Task<IEnumerable<NamedEntityForm>?> GetByValueAsync(IEnumerable<string> values)
     {
         var namedEntityDb = await _context.NamedEntityFormDbEntities.FirstOrDefaultAsync(entity => values.Contains(entity.Value));
         return _mapper.Map<NamedEntityForm[]>(namedEntityDb);
@@ -116,9 +116,9 @@ public class NamedEntityFormEfCoreAsyncRepository : INamedEntityFormAsyncReposit
         //    await _context.Set<NamedEntity>().AddAsync(entity.NamedEntity);
 
         //}
-        foreach (var newsId in entity.NewsIds) 
+        foreach (var newsId in entity.NewsIds)
         {
-            if (!dbEntity.NewsIds.Select(n => n.NewsId).Contains(newsId)) 
+            if (!dbEntity.NewsIds.Select(n => n.NewsId).Contains(newsId))
             {
                 var newsIdDbEntity = new NewsIdDbEntity() { NewsId = newsId };
                 await _context.NewsIdDbEntyties.AddAsync(newsIdDbEntity);
