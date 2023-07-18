@@ -50,7 +50,7 @@ public class NamedEntityFormEfCoreAsyncRepository : INamedEntityFormAsyncReposit
                 }
                 else
                 {
-                    Console.WriteLine($"Discarding duplicate {entityType.DisplayName()} entity with key value {keyValue}");
+                   /// Console.WriteLine($"Discarding duplicate {entityType.DisplayName()} entity with key value {keyValue}");
                 }
             });
         }

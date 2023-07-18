@@ -20,9 +20,9 @@ public class NamedEntityFormDbContext : DbContext
 
         modelBuilder.Entity<NamedEntityForm>()
             .Property(e => e.NewsIds)
-            .HasConversion(new ValueConverter<List<Guid>, string>(
+            .HasConversion(new ValueConverter<IReadOnlyCollection<Guid>, string>(
                 news => JsonSerializer.Serialize(news, options),
-                news => JsonSerializer.Deserialize<List<Guid>>(news, options)));
+                news => JsonSerializer.Deserialize<IReadOnlyCollection<Guid>>(news, options)));
     }
 
     

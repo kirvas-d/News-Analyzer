@@ -16,7 +16,7 @@ public class RabbitMqMessengerService<TMessage> : IDisposable
     {
         _configuration = configuration;
 
-        var factory = new ConnectionFactory() { HostName = _configuration.HostName, DispatchConsumersAsync = true };
+        var factory = new ConnectionFactory() { HostName = _configuration.HostName };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
         _channel.QueueDeclare(queue: _configuration.QueueName,

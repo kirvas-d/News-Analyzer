@@ -16,8 +16,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
 builder.Services.AddHostedService<BackgroundNerService>();
 builder.Services.AddSingleton<INerService, CatalystNerService>();
-builder.Services.AddSingleton<IMessengerAsyncConsumerService<NewsLoadedEventArgs>, RabbitMqMessengerService<NewsLoadedEventArgs>>();
-builder.Services.AddSingleton<INamedEntityFormAsyncRepository, NamedEntityFormEfCoreAsyncRepository>();
+builder.Services.AddSingleton<IMessengerConsumerService<NewsLoadedEventArgs>, RabbitMqMessengerConsumerService<NewsLoadedEventArgs>>();
+builder.Services.AddSingleton<INamedEntityFormRepository, NamedEntityFormEfCoreRepository>();
 builder.Services.AddServicesConfiguration();
 
 var app = builder.Build();

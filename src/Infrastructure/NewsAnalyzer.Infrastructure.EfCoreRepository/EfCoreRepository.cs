@@ -45,7 +45,7 @@ public class EfCoreRepository<TEntity, TId> : IGenericRepository<TEntity, TId> w
         return _context.Set<TEntity>().Find(id);
     }
 
-    public IEnumerable<TEntity> GetWhereA(Expression<Func<TEntity, bool>> predicate)
+    public IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate)
     {
         return _context.Set<TEntity>().Where(predicate);
     }

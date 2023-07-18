@@ -8,7 +8,7 @@ public interface IGenericRepository<TEntity, TId> where TEntity : class
 
     IEnumerable<TEntity> GetAll();
 
-    IEnumerable<TEntity> GetWhereA(Expression<Func<TEntity, bool>> predicate);
+    IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate);
 
     TEntity? FirstOrDefault(Expression<Func<TEntity, bool>> predicate);
 

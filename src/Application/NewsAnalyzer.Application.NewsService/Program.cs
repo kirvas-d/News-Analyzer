@@ -20,7 +20,7 @@ builder.Services.AddHostedService<BackgroundRssNewsDecoratorService>();
 builder.Services.AddSingleton<IHtmlLoader, PlayWrightHtmlLoader>();
 builder.Services.AddSingleton<INewsLoader, RssNewsLoader>();
 builder.Services.AddSingleton<INewsAsyncRepository, NewsEfCoreAsyncRepository>();
-builder.Services.AddSingleton<IMessengerPublishService<NewsLoadedEventArgs>, RabbitMqMessengerService<NewsLoadedEventArgs>>();
+builder.Services.AddSingleton<IMessengerPublishService<NewsLoadedEventArgs>, RabbitMqMessengerPublishService<NewsLoadedEventArgs>>();
 
 var app = builder.Build();
 
