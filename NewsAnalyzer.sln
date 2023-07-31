@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Infrastructure.EfCoreRepository", "src\Infrastructure\NewsAnalyzer.Infrastructure.EfCoreRepository\NewsAnalyzer.Infrastructure.EfCoreRepository.csproj", "{33726EFE-8A7C-4930-9F3B-EA62205154D9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Appliction", "Appliction", "{6C0B0A34-275F-41F3-9285-16D9F26A1124}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{6C0B0A34-275F-41F3-9285-16D9F26A1124}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Infrastructure.RabbitMqService", "src\Infrastructure\NewsAnalyzer.Infrastructure.RabbitMqService\NewsAnalyzer.Infrastructure.RabbitMqService.csproj", "{24332FD2-B344-4CF6-8933-64FA322E679A}"
 EndProject
@@ -25,7 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Application.Ne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core.NerService", "src\Core\NewsAnalyzer.Core.NerService\NewsAnalyzer.Core.NerService.csproj", "{4D157EE2-30BD-46D9-97A7-ABAFB40206C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewsAnalyzer.Application.NerService", "src\Application\NewsAnalyzer.Application.NerService\NewsAnalyzer.Application.NerService.csproj", "{CA871B91-AC66-4624-86A2-EA6BB8C68B53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Application.NerService", "src\Application\NewsAnalyzer.Application.NerService\NewsAnalyzer.Application.NerService.csproj", "{CA871B91-AC66-4624-86A2-EA6BB8C68B53}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Application.ApiGateway", "src\Application\NewsAnalyzer.Application.ApiGateway\NewsAnalyzer.Application.ApiGateway.csproj", "{E4348618-17D1-46A1-80F4-4E1C76B4DB6E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Core.Authentication", "src\Core\NewsAnalyzer.Core.Authentication\NewsAnalyzer.Core.Authentication.csproj", "{63F650E1-F7F6-4547-B9E5-D8CB067FF56C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewsAnalyzer.Infrastructure.IdentityAuthenticationService", "src\Infrastructure\NewsAnalyzer.Infrastructure.IdentityAuthenticationService\NewsAnalyzer.Infrastructure.IdentityAuthenticationService.csproj", "{12E9D3CA-898E-4285-83A4-7F4E8B94223B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +67,18 @@ Global
 		{CA871B91-AC66-4624-86A2-EA6BB8C68B53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA871B91-AC66-4624-86A2-EA6BB8C68B53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CA871B91-AC66-4624-86A2-EA6BB8C68B53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4348618-17D1-46A1-80F4-4E1C76B4DB6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4348618-17D1-46A1-80F4-4E1C76B4DB6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4348618-17D1-46A1-80F4-4E1C76B4DB6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4348618-17D1-46A1-80F4-4E1C76B4DB6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63F650E1-F7F6-4547-B9E5-D8CB067FF56C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63F650E1-F7F6-4547-B9E5-D8CB067FF56C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63F650E1-F7F6-4547-B9E5-D8CB067FF56C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63F650E1-F7F6-4547-B9E5-D8CB067FF56C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{12E9D3CA-898E-4285-83A4-7F4E8B94223B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12E9D3CA-898E-4285-83A4-7F4E8B94223B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12E9D3CA-898E-4285-83A4-7F4E8B94223B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12E9D3CA-898E-4285-83A4-7F4E8B94223B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +94,9 @@ Global
 		{050A4E18-32EA-4A93-8A86-FD26C41B8DD6} = {6C0B0A34-275F-41F3-9285-16D9F26A1124}
 		{4D157EE2-30BD-46D9-97A7-ABAFB40206C4} = {FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D}
 		{CA871B91-AC66-4624-86A2-EA6BB8C68B53} = {6C0B0A34-275F-41F3-9285-16D9F26A1124}
+		{E4348618-17D1-46A1-80F4-4E1C76B4DB6E} = {6C0B0A34-275F-41F3-9285-16D9F26A1124}
+		{63F650E1-F7F6-4547-B9E5-D8CB067FF56C} = {FB03CFB1-E8E9-4B5E-AB72-3DDA53FDBA2D}
+		{12E9D3CA-898E-4285-83A4-7F4E8B94223B} = {F7A00E1E-AF7F-42EB-A3A8-8C5DA52879A5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {348AC9CD-3E7B-4DE8-883B-B647FB438475}
