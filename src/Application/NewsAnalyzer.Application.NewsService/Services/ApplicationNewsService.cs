@@ -2,28 +2,27 @@
 using Grpc.Core;
 using NewsAnalyzer.Core.Abstractions;
 
-namespace NewsAnalyzer.Application.NewsService.Services
+namespace NewsAnalyzer.Application.NewsService.Services;
+
+public class ApplicationNewsService : ApplicationNews.ApplicationNewsBase
 {
-    public class ApplicationNewsService : ApplicationNews.ApplicationNewsBase
+    private readonly INewsAsyncRepository _newsAsyncRepository;
+
+    public ApplicationNewsService(INewsAsyncRepository newsAsyncRepository) 
     {
-        private readonly INewsAsyncRepository _newsAsyncRepository;
+        _newsAsyncRepository = newsAsyncRepository;
+    }
 
-        public ApplicationNewsService(INewsAsyncRepository newsAsyncRepository) 
+    public override async Task<NewsResponse> GetNews(NewsRequest newsRequest, ServerCallContext context) 
+    {
+        var news = await _newsAsyncRepository.GetByIdAsync(Guid.Parse(newsRequest.Id));
+        return new NewsResponse
         {
-            _newsAsyncRepository = newsAsyncRepository;
-        }
-
-        public override async Task<NewsResponse> GetNews(NewsRequest newsRequest, ServerCallContext context) 
-        {
-            var news = await _newsAsyncRepository.GetByIdAsync(Guid.Parse(newsRequest.Id));
-            return new NewsResponse
-            {
-                Id = news.Id.ToString(),
-                SourceName = news.SourceName,
-                Title = news.Title,
-                Text = news.Text,
-                PublishDate = Timestamp.FromDateTime(news.PublishDate)
-            };
-        }
+            Id = news.Id.ToString(),
+            SourceName = news.SourceName,
+            Title = news.Title,
+            Text = news.Text,
+            PublishDate = Timestamp.FromDateTime(news.PublishDate)
+        };
     }
 }
