@@ -14,7 +14,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
-builder.Services.AddServicesConfiguration();
+builder.Services.AddServicesConfiguration(builder.Configuration);
 builder.Services.AddSingleton<BackgroundRssNewsService>();
 builder.Services.AddHostedService<BackgroundRssNewsDecoratorService>();
 builder.Services.AddSingleton<IHtmlLoader, PlayWrightHtmlLoader>();

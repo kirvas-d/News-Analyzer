@@ -9,12 +9,12 @@ namespace NewsAnalyzer.Application.NewsService.Extensions;
 
 public static class ConfigurationExnensions
 {
-    public static void AddServicesConfiguration(this IServiceCollection services) 
+    public static void AddServicesConfiguration(this IServiceCollection services, IConfiguration configuration) 
     {
         var rssUrls = new List<string>() { "https://lenta.ru/rss" };
         var parsers = new List<IHtmlParser>() { new LentaHtmlParser() };
-        var configuration = new RssNewsLoaderConfiguration(rssUrls, parsers);
-        services.AddSingleton(sp => configuration);
+        var rssConfiguration = new RssNewsLoaderConfiguration(rssUrls, parsers);
+        services.AddSingleton(sp => rssConfiguration);
 
         var rssNewsServiceConfiruration = new BackgroundRssNewsServiceConfiguration 
         { 
@@ -24,11 +24,11 @@ public static class ConfigurationExnensions
 
         var rabbitMqMessengerServiceConfiguration = new RabbitMqMessengerServiceConfiguration
         {
-            HostName = "192.168.0.171",
-            QueueName = $"NewsService.NewsLoaded"
+            HostName = configuration["RabbitMq:HostName"],
+            QueueName = configuration["RabbitMq:QueueName"]
         };
         services.AddSingleton(sp => rabbitMqMessengerServiceConfiguration);
 
-        services.AddDbContext<NewsDbContext>(options => options.UseNpgsql("Host=192.168.0.171;Port=5432;Database=news_db;Username=homeserver;Password=Pechorin"), ServiceLifetime.Singleton);
+        services.AddDbContext<NewsDbContext>(options => options.UseNpgsql(configuration["NewsDb:ConnectionString"]), ServiceLifetime.Singleton);
     }
 }
