@@ -19,11 +19,12 @@ public class RabbitMqMessengerService<TMessage> : IDisposable
         var factory = new ConnectionFactory() { HostName = _configuration.HostName };
         _connection = factory.CreateConnection();
         _channel = _connection.CreateModel();
-        _channel.QueueDeclare(queue: _configuration.QueueName,
-                              durable: true,
-                              exclusive: false,
-                              autoDelete: false,
-                              arguments: null);
+        
+        if(!string.IsNullOrWhiteSpace(_configuration.ExcangeName))
+            _channel.ExchangeDeclare(exchange: _configuration.ExcangeName, type: ExchangeType.Fanout);
+
+        if(!string.IsNullOrWhiteSpace(_configuration.QueueName))
+            _channel.QueueDeclare(queue: _configuration.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
     }
 
     public void Dispose()
