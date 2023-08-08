@@ -23,8 +23,12 @@ public class RabbitMqMessengerService<TMessage> : IDisposable
         if(!string.IsNullOrWhiteSpace(_configuration.ExcangeName))
             _channel.ExchangeDeclare(exchange: _configuration.ExcangeName, type: ExchangeType.Fanout);
 
-        if(!string.IsNullOrWhiteSpace(_configuration.QueueName))
+        if (!string.IsNullOrWhiteSpace(_configuration.QueueName))
+        {
             _channel.QueueDeclare(queue: _configuration.QueueName, durable: true, exclusive: false, autoDelete: false, arguments: null);
+            _channel.QueueBind(queue: _configuration.QueueName, exchange: _configuration.ExcangeName, routingKey: string.Empty);
+        }
+        _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
     }
 
     public void Dispose()

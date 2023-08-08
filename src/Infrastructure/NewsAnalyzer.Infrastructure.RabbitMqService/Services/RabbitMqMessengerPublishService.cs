@@ -17,10 +17,10 @@ public class RabbitMqMessengerPublishService<TMessage> : RabbitMqMessengerServic
         var jsonString = JsonSerializer.Serialize(message);
         var body = Encoding.UTF8.GetBytes(jsonString);
 
-        _channel.BasicPublish(exchange: _configuration.ExcangeName,
-                              routingKey: _configuration.QueueName,
-                              basicProperties: null,
-                              body: body);
-        _channel.BasicQos(prefetchSize: 0, prefetchCount: 1, global: false);
+        _channel.BasicPublish(
+            exchange: _configuration.ExcangeName,
+            routingKey: string.Empty,
+            basicProperties: null,
+            body: body);
     }
 }
