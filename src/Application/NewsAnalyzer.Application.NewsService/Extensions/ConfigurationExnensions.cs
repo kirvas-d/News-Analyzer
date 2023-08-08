@@ -7,7 +7,7 @@ using NewsAnalyzer.Infrastructure.RabbitMqService.Models;
 
 namespace NewsAnalyzer.Application.NewsService.Extensions;
 
-public static class ConfigurationExnensions
+public static class ConfigurationExtensions
 {
     public static void AddServicesConfiguration(this IServiceCollection services, IConfiguration configuration) 
     {
@@ -25,6 +25,7 @@ public static class ConfigurationExnensions
         var rabbitMqMessengerServiceConfiguration = new RabbitMqMessengerServiceConfiguration
         {
             HostName = configuration["RabbitMq:HostName"],
+            ExcangeName = configuration["RabbitMq:ExchangeName"],
             QueueName = configuration["RabbitMq:QueueName"]
         };
         services.AddSingleton(sp => rabbitMqMessengerServiceConfiguration);
