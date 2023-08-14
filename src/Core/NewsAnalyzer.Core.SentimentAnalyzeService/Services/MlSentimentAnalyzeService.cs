@@ -2,16 +2,14 @@
 using Microsoft.ML.Data;
 using NewsAnalyzer.Core.SentimentAnalyzeService.Abstractions;
 using NewsAnalyzer.Core.SentimentAnalyzeService.Models;
-using System.Reflection.Metadata;
-using Tensorboard;
 
 namespace NewsAnalyzer.Core.SentimentAnalyzeService.Services;
 
-public class SentimentAnalyzeService : ISentimentAnalyzeService
+public class MlSentimentAnalyzeService : ISentimentAnalyzeService
 {
     private readonly PredictionEngine<ModelInput, ModelOutput> _predictionEngine;
     private readonly string[] _labels;
-    public SentimentAnalyzeService(SentimentAnalyzeServiceConfiguration configuration)
+    public MlSentimentAnalyzeService(MlSentimentAnalyzeServiceConfiguration configuration)
     {
         if (!File.Exists(configuration.ModelFilePath))
             throw new FileNotFoundException($"{configuration.ModelFilePath} does not exsist!");

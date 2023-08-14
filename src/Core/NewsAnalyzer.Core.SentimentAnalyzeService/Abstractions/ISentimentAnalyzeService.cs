@@ -1,5 +1,8 @@
-﻿namespace NewsAnalyzer.Core.SentimentAnalyzeService.Abstractions;
+﻿using NewsAnalyzer.Core.SentimentAnalyzeService.Models;
 
-internal interface ISentimentAnalyzeService
+namespace NewsAnalyzer.Core.SentimentAnalyzeService.Abstractions;
+
+public interface ISentimentAnalyzeService
 {
+    SentimentAnalyzeResult Predict(string Text);
 }

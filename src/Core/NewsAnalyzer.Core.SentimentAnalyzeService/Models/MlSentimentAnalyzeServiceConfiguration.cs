@@ -1,6 +1,6 @@
 ﻿namespace NewsAnalyzer.Core.SentimentAnalyzeService.Models;
 
-public class SentimentAnalyzeServiceConfiguration
+public class MlSentimentAnalyzeServiceConfiguration
 {
     public string ModelFilePath { get; init; }
 }
