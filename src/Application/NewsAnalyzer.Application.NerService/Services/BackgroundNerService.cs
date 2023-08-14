@@ -13,17 +13,20 @@ public class BackgroundNerService : BackgroundService
     private readonly IMessengerConsumerService<NewsLoadedEventArgs> _messengerConsumerService;
     private readonly INamedEntityFormRepository _namedEntityFormRepository;
     private readonly ApplicationNews.ApplicationNewsClient _applicationNewsClient;
+    private readonly ILogger<BackgroundNerService> _logger;
 
     public BackgroundNerService(
         INerService nerService, 
         IMessengerConsumerService<NewsLoadedEventArgs> messengerConsumerService, 
         INamedEntityFormRepository namedEntityFormAsyncRepository, 
-        ApplicationNewsClient applicationNewsClient)
+        ApplicationNewsClient applicationNewsClient,
+        ILogger<BackgroundNerService> logger)
     {
         _nerService = nerService;
         _messengerConsumerService = messengerConsumerService;
         _namedEntityFormRepository = namedEntityFormAsyncRepository;
         _applicationNewsClient = applicationNewsClient;
+        _logger = logger;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -33,39 +36,42 @@ public class BackgroundNerService : BackgroundService
 
     private void _messengerConsumerService_Received(object? sender, Infrastructure.RabbitMqService.Events.MessageReceivedEventArgs<NewsLoadedEventArgs> e)
     {
-        var newsResponse = _applicationNewsClient.GetNews(new NewsRequest { Id = e.Message.NewsId.ToString() });
-        
-        var news = new News(Guid.Parse(newsResponse.Id),
-                            newsResponse.SourceName,
-                            newsResponse.Title,
-                            newsResponse.Text,
-                            newsResponse.PublishDate.ToDateTime());
-        var namedEntityForms = _nerService.GetNamedEntityFormsFromNews(news);
-        
-        var exsistedNamedEntityForms = _namedEntityFormRepository.GetWhere(entity => namedEntityForms
-                                                                                         .Select(e => e.Value)
-                                                                                         .Contains(entity.Value));
-
-        var unexsistedNamedEntityForms = new List<NamedEntityForm>();
-        foreach (var namedEntityForm in namedEntityForms)
+        try
         {
-            var exsistedNamedEntityForm = exsistedNamedEntityForms?.FirstOrDefault(e => e.Value == namedEntityForm.Value);
-            if (exsistedNamedEntityForm != null)
-            {
-                exsistedNamedEntityForm.AddNewsId(news.Id);
-                _namedEntityFormRepository.Update(exsistedNamedEntityForm);
-            }
-            else
-            {
-                unexsistedNamedEntityForms.Add(namedEntityForm);
-            }
-        }
+            var newsResponse = _applicationNewsClient.GetNews(new NewsRequest { Id = e.Message.NewsId.ToString() });
 
-        foreach (var namedEntityForm in unexsistedNamedEntityForms)
-        {
-            _namedEntityFormRepository.Add(namedEntityForm);
+            var news = new News(Guid.Parse(newsResponse.Id),
+                                newsResponse.SourceName,
+                                newsResponse.Title,
+                                newsResponse.Text,
+                                newsResponse.PublishDate.ToDateTime());
+            var namedEntityForms = _nerService.GetNamedEntityFormsFromNews(news);
+
+            var exsistedNamedEntityForms = _namedEntityFormRepository.GetWhere(entity => namedEntityForms
+                                                                                             .Select(e => e.Value)
+                                                                                             .Contains(entity.Value));
+
+            var unexsistedNamedEntityForms = new List<NamedEntityForm>();
+            foreach (var namedEntityForm in namedEntityForms)
+            {
+                var exsistedNamedEntityForm = exsistedNamedEntityForms?.FirstOrDefault(e => e.Value == namedEntityForm.Value);
+                if (exsistedNamedEntityForm != null)
+                {
+                    exsistedNamedEntityForm.AddNewsId(news.Id);
+                    _namedEntityFormRepository.Update(exsistedNamedEntityForm);
+                }
+                else
+                {
+                    unexsistedNamedEntityForms.Add(namedEntityForm);
+                }
+            }
+
+            _namedEntityFormRepository.AddRange(unexsistedNamedEntityForms);           
+            _messengerConsumerService.AcknowledgeConsumeMessage(e.DeliveryTag);
         }
-        //_namedEntityFormRepository.AddRange(unexsistedNamedEntityForms);           
-        _messengerConsumerService.AcknowledgeConsumeMessage(e.DeliveryTag);
+        catch (Exception exception) 
+        {
+            _logger.LogError(exception.ToString());
+        }
     }
 }
