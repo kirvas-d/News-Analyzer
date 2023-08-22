@@ -1,6 +1,7 @@
 ﻿using Microsoft.ML;
 using Microsoft.ML.Data;
-using NlpService.SentimentAnalyzeService.Abstractions;
+using NlpService.Core.Abstractions;
+using NlpService.Core.Models;
 using NlpService.SentimentAnalyzeService.Models;
 
 namespace NlpService.SentimentAnalyzeService.Services;

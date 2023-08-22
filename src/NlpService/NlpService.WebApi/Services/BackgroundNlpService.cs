@@ -10,22 +10,25 @@ using static NewsAnalyzer.Application.NewsService.ApplicationNews;
 
 namespace NlpService.WebApi.Services;
 
-public class BackgroundNerService : BackgroundService
+public class BackgroundNlpService : BackgroundService
 {
     private readonly INerService _nerService;
+    private readonly ISentimentAnalyzeService _sentimentAnalyzeService;
     private readonly IMessengerConsumerService<NewsLoadedEventArgs> _messengerConsumerService;
     private readonly INamedEntityFormRepository _namedEntityFormRepository;
     private readonly ApplicationNewsClient _applicationNewsClient;
-    private readonly ILogger<BackgroundNerService> _logger;
+    private readonly ILogger<BackgroundNlpService> _logger;
 
-    public BackgroundNerService(
+    public BackgroundNlpService(
         INerService nerService,
+        ISentimentAnalyzeService sentimentAnalyzeService,
         IMessengerConsumerService<NewsLoadedEventArgs> messengerConsumerService,
         INamedEntityFormRepository namedEntityFormAsyncRepository,
         ApplicationNewsClient applicationNewsClient,
-        ILogger<BackgroundNerService> logger)
+        ILogger<BackgroundNlpService> logger)
     {
         _nerService = nerService;
+        _sentimentAnalyzeService = sentimentAnalyzeService;
         _messengerConsumerService = messengerConsumerService;
         _namedEntityFormRepository = namedEntityFormAsyncRepository;
         _applicationNewsClient = applicationNewsClient;
@@ -49,6 +52,7 @@ public class BackgroundNerService : BackgroundService
                                 newsResponse.Text,
                                 newsResponse.PublishDate.ToDateTime());
             var namedEntityForms = _nerService.GetNamedEntityFormsFromNews(news);
+            var sentimentResult = _sentimentAnalyzeService.Predict(news.Text);
 
             var exsistedNamedEntityForms = _namedEntityFormRepository.GetWhere(entity => namedEntityForms
                                                                                              .Select(e => e.Value)
@@ -68,7 +72,6 @@ public class BackgroundNerService : BackgroundService
                     unexsistedNamedEntityForms.Add(namedEntityForm);
                 }
             }
-
             _namedEntityFormRepository.AddRange(unexsistedNamedEntityForms);
             _messengerConsumerService.AcknowledgeConsumeMessage(e.DeliveryTag);
         }

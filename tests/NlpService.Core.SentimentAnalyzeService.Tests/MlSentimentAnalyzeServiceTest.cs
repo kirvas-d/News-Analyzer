@@ -1,4 +1,4 @@
-﻿using NlpService.SentimentAnalyzeService.Abstractions;
+﻿using NlpService.Core.Abstractions;
 using NlpService.SentimentAnalyzeService.Models;
 using NlpService.SentimentAnalyzeService.Services;
 

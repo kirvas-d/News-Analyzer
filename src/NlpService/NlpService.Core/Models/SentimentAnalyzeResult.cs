@@ -1,4 +1,4 @@
-﻿namespace NlpService.SentimentAnalyzeService.Models;
+﻿namespace NlpService.Core.Models;
 
 public class SentimentAnalyzeResult
 {
