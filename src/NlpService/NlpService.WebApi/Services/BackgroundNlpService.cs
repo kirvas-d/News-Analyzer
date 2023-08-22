@@ -1,5 +1,4 @@
 ﻿using NewsAnalyzer.Application.NewsService;
-using NewsAnalyzer.Core.Abstractions;
 using NewsService.Core.Events;
 using NewsService.Core.Models;
 using NlpService.Core.Abstractions;
@@ -52,7 +51,6 @@ public class BackgroundNlpService : BackgroundService
                                 newsResponse.Text,
                                 newsResponse.PublishDate.ToDateTime());
             var namedEntityForms = _nerService.GetNamedEntityFormsFromNews(news);
-            var sentimentResult = _sentimentAnalyzeService.Predict(news.Text);
 
             var exsistedNamedEntityForms = _namedEntityFormRepository.GetWhere(entity => namedEntityForms
                                                                                              .Select(e => e.Value)

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewsAnalyzer.Core.Abstractions;
+using NewsAnalyzer.Repository.Abstractions;
 using System.Linq.Expressions;
 
-namespace EfCoreRepository;
+namespace NewsAnalyzer.EfCoreRepository.Services;
 
 public class EfCoreAsyncRepository<TEntity, TId> : IAsyncGenericRepository<TEntity, TId> where TEntity : class
 {

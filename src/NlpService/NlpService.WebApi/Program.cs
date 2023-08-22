@@ -1,8 +1,7 @@
-using EfCoreRepository.NamedEntityFormRepository;
-using NewsAnalyzer.Core.Abstractions;
 using NewsService.Core.Events;
 using NlpService.Core.Abstractions;
 using NlpService.NerService.Services;
+using NlpService.Repository.NamedEntityFormRepository;
 using NlpService.SentimentAnalyzeService.Services;
 using NlpService.WebApi.Extensions;
 using NlpService.WebApi.Services;

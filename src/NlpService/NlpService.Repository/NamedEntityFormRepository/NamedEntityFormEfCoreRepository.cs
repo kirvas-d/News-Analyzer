@@ -1,7 +1,8 @@
-﻿using NewsAnalyzer.Core.Abstractions;
+﻿using NewsAnalyzer.EfCoreRepository.Services;
+using NlpService.Core.Abstractions;
 using NlpService.Core.Models;
 
-namespace EfCoreRepository.NamedEntityFormRepository;
+namespace NlpService.Repository.NamedEntityFormRepository;
 
 public class NamedEntityFormEfCoreRepository : EfCoreRepository<NamedEntityForm, Guid>, INamedEntityFormRepository
 {

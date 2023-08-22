@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\NewsAnalyzer.Core\NewsAnalyzer.Core.csproj" />
+    <ProjectReference Include="..\..\Common\NewsAnalyzer.Repository\NewsAnalyzer.Repository.csproj" />
     <ProjectReference Include="..\..\NewsService\NewsService.Core\NewsService.Core.csproj" />
   </ItemGroup>
 

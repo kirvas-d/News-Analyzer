@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NlpService.Core.Models;
 using System.Text.Json;
 
-namespace EfCoreRepository.NamedEntityFormRepository;
+namespace NlpService.Repository.NamedEntityFormRepository;
 
 public class NamedEntityFormDbContext : DbContext
 {

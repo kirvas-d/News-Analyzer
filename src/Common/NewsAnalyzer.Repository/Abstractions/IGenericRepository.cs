@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace NewsAnalyzer.Core.Abstractions;
+namespace NewsAnalyzer.Repository.Abstractions;
 
 public interface IGenericRepository<TEntity, TId> where TEntity : class
 {

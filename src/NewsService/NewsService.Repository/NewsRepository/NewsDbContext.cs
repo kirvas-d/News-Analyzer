@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsService.Core.Models;
 
-namespace EfCoreRepository.NewsRepository;
+namespace NewsService.Repository.NewsRepository;
 
 public class NewsDbContext : DbContext
 {

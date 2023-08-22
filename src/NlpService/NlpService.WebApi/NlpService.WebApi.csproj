@@ -26,9 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\EfCoreRepository\EfCoreRepository.csproj" />
     <ProjectReference Include="..\..\Infrastructure\RabbitMqService\RabbitMqService.csproj" />
     <ProjectReference Include="..\NlpService.NerService\NlpService.NerService.csproj" />
+    <ProjectReference Include="..\NlpService.Repository\NlpService.Repository.csproj" />
+    <ProjectReference Include="..\NlpService.SentimentAnalyzeService\NlpService.SentimentAnalyzeService.csproj" />
   </ItemGroup>
 
 </Project>

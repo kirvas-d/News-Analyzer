@@ -1,9 +1,9 @@
-using EfCoreRepository.NewsRepository;
-using NewsAnalyzer.Application.NewsService.Extensions;
 using NewsAnalyzer.Application.NewsService.Services;
 using NewsAnalyzer.Core.Services;
 using NewsService.Core.Abstractions;
 using NewsService.Core.Events;
+using NewsService.Repository.NewsRepository;
+using NewsService.WebApi.Extensions;
 using RabbitMqService.Abstractions;
 using RabbitMqService.Services;
 

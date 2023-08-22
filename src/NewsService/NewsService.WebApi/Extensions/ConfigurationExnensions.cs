@@ -1,24 +1,24 @@
-﻿using EfCoreRepository.NewsRepository;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NewsAnalyzer.Core.Services;
 using NewsService.Core.Abstractions;
 using NewsService.Core.Models;
+using NewsService.Repository.NewsRepository;
 using RabbitMqService.Models;
 
-namespace NewsAnalyzer.Application.NewsService.Extensions;
+namespace NewsService.WebApi.Extensions;
 
 public static class ConfigurationExtensions
 {
-    public static void AddServicesConfiguration(this IServiceCollection services, IConfiguration configuration) 
+    public static void AddServicesConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
         var rssUrls = new List<string>() { "https://lenta.ru/rss" };
         var parsers = new List<IHtmlParser>() { new LentaHtmlParser() };
         var rssConfiguration = new RssNewsLoaderConfiguration(rssUrls, parsers);
         services.AddSingleton(sp => rssConfiguration);
 
-        var rssNewsServiceConfiruration = new BackgroundRssNewsServiceConfiguration 
-        { 
-            ScaningIntervalTime = TimeSpan.FromDays(1) 
+        var rssNewsServiceConfiruration = new BackgroundRssNewsServiceConfiguration
+        {
+            ScaningIntervalTime = TimeSpan.FromDays(1)
         };
         services.AddSingleton(sp => rssNewsServiceConfiruration);
 

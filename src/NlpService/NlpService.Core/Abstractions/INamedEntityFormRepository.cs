@@ -1,6 +1,7 @@
-﻿using NlpService.Core.Models;
+﻿using NewsAnalyzer.Repository.Abstractions;
+using NlpService.Core.Models;
 
-namespace NewsAnalyzer.Core.Abstractions;
+namespace NlpService.Core.Abstractions;
 
 public interface INamedEntityFormRepository : IGenericRepository<NamedEntityForm, Guid>
 {

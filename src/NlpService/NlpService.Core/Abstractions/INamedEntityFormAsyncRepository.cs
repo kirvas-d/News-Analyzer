@@ -1,4 +1,4 @@
-﻿using NewsAnalyzer.Core.Abstractions;
+﻿using NewsAnalyzer.Repository.Abstractions;
 using NlpService.Core.Models;
 
 namespace NlpService.Core.Abstractions;

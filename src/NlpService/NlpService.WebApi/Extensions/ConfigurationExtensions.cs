@@ -1,6 +1,6 @@
-﻿using EfCoreRepository.NamedEntityFormRepository;
-using Grpc.Net.Client;
+﻿using Grpc.Net.Client;
 using Microsoft.EntityFrameworkCore;
+using NlpService.Repository.NamedEntityFormRepository;
 using NlpService.SentimentAnalyzeService.Models;
 using RabbitMqService.Models;
 using static NewsAnalyzer.Application.NewsService.ApplicationNews;

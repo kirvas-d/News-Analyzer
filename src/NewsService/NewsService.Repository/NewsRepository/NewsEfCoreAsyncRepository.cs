@@ -1,7 +1,8 @@
-﻿using NewsService.Core.Abstractions;
+﻿using NewsAnalyzer.EfCoreRepository.Services;
+using NewsService.Core.Abstractions;
 using NewsService.Core.Models;
 
-namespace EfCoreRepository.NewsRepository;
+namespace NewsService.Repository.NewsRepository;
 
 public class NewsEfCoreAsyncRepository : EfCoreAsyncRepository<News, Guid>, INewsAsyncRepository
 {
