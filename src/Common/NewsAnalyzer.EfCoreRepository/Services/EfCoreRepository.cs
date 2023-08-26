@@ -1,64 +1,68 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewsAnalyzer.Repository.Abstractions;
 using System.Linq.Expressions;
 
 namespace NewsAnalyzer.EfCoreRepository.Services;
 
-public class EfCoreRepository<TEntity, TId> : IGenericRepository<TEntity, TId> where TEntity : class
+public class EfCoreRepository<TDbContext, TEntity, TId> : IDisposable
+    where TDbContext : DbContext
+    where TEntity : class 
 {
-    protected DbContext _context;
+    protected readonly DbSet<TEntity> _dbSet;
+    protected TDbContext _context;
 
-    public EfCoreRepository(DbContext dbContext)
+    public EfCoreRepository(TDbContext dbContext)
     {
         _context = dbContext;
+        _dbSet = dbContext.Set<TEntity>();
     }
 
-    public void Add(TEntity entity)
+    public virtual void Add(TEntity entity)
     {
-        _context.Set<TEntity>().Add(entity);
+        _context.Set<TEntity>().Add(entity);      
+    }
+
+    public virtual void AddRange(IEnumerable<TEntity> entities)
+    {
+        _dbSet.AddRange(entities);
+    }
+
+    public virtual TEntity? FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
+    {
+        return _dbSet.FirstOrDefault(predicate);
+    }
+
+    public virtual IEnumerable<TEntity> GetAll()
+    {
+        return _dbSet.ToList();
+    }
+
+    public virtual TEntity? GetById(TId id)
+    {
+        return _dbSet.Find(id);
+    }
+
+    public virtual IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate)
+    {
+        return _dbSet.Where(predicate);
+    }
+
+    public virtual void Remove(TEntity entity)
+    {
+        _dbSet.Remove(entity);
+    }
+
+    public virtual void Update(TEntity entity)
+    {
+        _dbSet.Update(entity);
+    }
+
+    public virtual void SaveChanges()
+    {
         _context.SaveChanges();
     }
 
-    public void AddRange(IEnumerable<TEntity> entities)
+    public virtual void Dispose()
     {
-        _context.Set<TEntity>().AddRange(entities);
-        _context.SaveChanges();
-    }
-
-    public int CountAll()
-    {
-        return _context.Set<TEntity>().Count();
-    }
-
-    public TEntity? FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
-    {
-        return _context.Set<TEntity>().FirstOrDefault(predicate);
-    }
-
-    public IEnumerable<TEntity> GetAll()
-    {
-        return _context.Set<TEntity>().ToList();
-    }
-
-    public TEntity? GetById(TId id)
-    {
-        return _context.Set<TEntity>().Find(id);
-    }
-
-    public IEnumerable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate)
-    {
-        return _context.Set<TEntity>().Where(predicate);
-    }
-
-    public void Remove(TEntity entity)
-    {
-        _context.Set<TEntity>().Remove(entity);
-        _context.SaveChanges();
-    }
-
-    public void Update(TEntity entity)
-    {
-        _context.Set<TEntity>().Update(entity);
-        _context.SaveChanges();
+        _context.Dispose();
     }
 }

@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="model.zip" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="model.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.ML" Version="2.0.1" />
     <PackageReference Include="Microsoft.ML.TorchSharp" Version="0.20.1" />
     <PackageReference Include="TorchSharp-cpu" Version="0.98.1" />
@@ -14,12 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\NlpService.Core\NlpService.Core.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="model.zip">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,8 @@
 using NewsService.Core.Events;
 using NlpService.Core.Abstractions;
+using NlpService.Data;
+using NlpService.Data.Abstractions;
 using NlpService.NerService.Services;
-using NlpService.Repository.NamedEntityFormRepository;
 using NlpService.SentimentAnalyzeService.Services;
 using NlpService.WebApi.Extensions;
 using NlpService.WebApi.Services;
@@ -15,7 +16,7 @@ builder.Services.AddHostedService<BackgroundNlpService>();
 builder.Services.AddSingleton<INerService, CatalystNerService>();
 builder.Services.AddSingleton<ISentimentAnalyzeService, MlSentimentAnalyzeService>();
 builder.Services.AddSingleton<IMessengerConsumerService<NewsLoadedEventArgs>, RabbitMqMessengerConsumerService<NewsLoadedEventArgs>>();
-builder.Services.AddSingleton<INamedEntityFormRepository, NamedEntityFormEfCoreRepository>();
+builder.Services.AddSingleton<INlpUnitOfWork, NlpUnitOfWork>();
 builder.Services.AddServicesConfiguration(builder.Configuration);
 
 var app = builder.Build();

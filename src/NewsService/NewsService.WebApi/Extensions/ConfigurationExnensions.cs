@@ -16,6 +16,7 @@ public static class ConfigurationExtensions
         var rssConfiguration = new RssNewsLoaderConfiguration(rssUrls, parsers);
         services.AddSingleton(sp => rssConfiguration);
 
+        
         var rssNewsServiceConfiruration = new BackgroundRssNewsServiceConfiguration
         {
             ScaningIntervalTime = TimeSpan.FromDays(1)

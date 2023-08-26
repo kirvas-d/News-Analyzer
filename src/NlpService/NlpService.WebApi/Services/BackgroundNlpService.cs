@@ -1,11 +1,12 @@
 ﻿using NewsAnalyzer.Application.NewsService;
 using NewsService.Core.Events;
-using NewsService.Core.Models;
 using NlpService.Core.Abstractions;
 using NlpService.Core.Models;
+using NlpService.Data.Abstractions;
 using RabbitMqService.Abstractions;
 using RabbitMqService.Events;
 using static NewsAnalyzer.Application.NewsService.ApplicationNews;
+using News = NlpService.Core.Models.News;
 
 namespace NlpService.WebApi.Services;
 
@@ -14,23 +15,23 @@ public class BackgroundNlpService : BackgroundService
     private readonly INerService _nerService;
     private readonly ISentimentAnalyzeService _sentimentAnalyzeService;
     private readonly IMessengerConsumerService<NewsLoadedEventArgs> _messengerConsumerService;
-    private readonly INamedEntityFormRepository _namedEntityFormRepository;
     private readonly ApplicationNewsClient _applicationNewsClient;
+    private readonly INlpUnitOfWork _nlpUnitOfWork;
     private readonly ILogger<BackgroundNlpService> _logger;
 
     public BackgroundNlpService(
         INerService nerService,
         ISentimentAnalyzeService sentimentAnalyzeService,
         IMessengerConsumerService<NewsLoadedEventArgs> messengerConsumerService,
-        INamedEntityFormRepository namedEntityFormAsyncRepository,
         ApplicationNewsClient applicationNewsClient,
+        INlpUnitOfWork nlpUnitOfWork,
         ILogger<BackgroundNlpService> logger)
     {
         _nerService = nerService;
         _sentimentAnalyzeService = sentimentAnalyzeService;
         _messengerConsumerService = messengerConsumerService;
-        _namedEntityFormRepository = namedEntityFormAsyncRepository;
         _applicationNewsClient = applicationNewsClient;
+        _nlpUnitOfWork = nlpUnitOfWork;
         _logger = logger;
     }
 
@@ -43,34 +44,34 @@ public class BackgroundNlpService : BackgroundService
     {
         try
         {
-            var newsResponse = _applicationNewsClient.GetNews(new NewsRequest { Id = e.Message.NewsId.ToString() });
+            var newsResponse = _applicationNewsClient.GetNews(new NewsRequest { Id = e.Message.NewsId.ToString() });    
+            var namedEntityValues = _nerService.GetNamedEntityFormsFromNews(newsResponse.Text);
+            var sentimentResult = _sentimentAnalyzeService.Predict(newsResponse.Text);
 
-            var news = new News(Guid.Parse(newsResponse.Id),
-                                newsResponse.SourceName,
-                                newsResponse.Title,
-                                newsResponse.Text,
-                                newsResponse.PublishDate.ToDateTime());
-            var namedEntityForms = _nerService.GetNamedEntityFormsFromNews(news);
-
-            var exsistedNamedEntityForms = _namedEntityFormRepository.GetWhere(entity => namedEntityForms
-                                                                                             .Select(e => e.Value)
-                                                                                             .Contains(entity.Value));
-
-            var unexsistedNamedEntityForms = new List<NamedEntityForm>();
-            foreach (var namedEntityForm in namedEntityForms)
+            var newsId = Guid.Parse(newsResponse.Id);
+            var news = _nlpUnitOfWork.NewsRepository.GetById(newsId);
+            if (news == null) 
             {
-                var exsistedNamedEntityForm = exsistedNamedEntityForms?.FirstOrDefault(e => e.Value == namedEntityForm.Value);
-                if (exsistedNamedEntityForm != null)
+                news = new News(newsId, sentimentResult);
+                _nlpUnitOfWork.NewsRepository.Add(news);
+            }
+
+            foreach (var value in namedEntityValues) 
+            {
+                var namedEntityForm = _nlpUnitOfWork.NamedEntityFormRepository.GetByValue(value);
+                if (namedEntityForm == null)
                 {
-                    exsistedNamedEntityForm.AddNewsId(news.Id);
-                    _namedEntityFormRepository.Update(exsistedNamedEntityForm);
+                    namedEntityForm = new NamedEntityForm(value, new List<News> { news });
+                    _nlpUnitOfWork.NamedEntityFormRepository.Add(namedEntityForm);
                 }
-                else
+                else 
                 {
-                    unexsistedNamedEntityForms.Add(namedEntityForm);
+                    namedEntityForm.AddNews(news);
+                    _nlpUnitOfWork.NamedEntityFormRepository.Update(namedEntityForm);
                 }
             }
-            _namedEntityFormRepository.AddRange(unexsistedNamedEntityForms);
+
+            _nlpUnitOfWork.SaveChanges();
             _messengerConsumerService.AcknowledgeConsumeMessage(e.DeliveryTag);
         }
         catch (Exception exception)

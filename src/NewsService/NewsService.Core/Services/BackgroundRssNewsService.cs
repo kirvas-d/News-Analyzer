@@ -43,6 +43,7 @@ namespace NewsAnalyzer.Core.Services
             await foreach (var news in _sourceNewsLoader.LoadNewsAsync(newNewsInfos))
             {
                 await _newsRepository.AddAsync(news);
+                await _newsRepository.SaveChangesAsync();
                 NewsLoaded?.Invoke(this, new NewsLoadedEventArgs { NewsId = news.Id });
             }
         }

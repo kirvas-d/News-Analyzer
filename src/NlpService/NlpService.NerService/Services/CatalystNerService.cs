@@ -21,16 +21,16 @@ public class CatalystNerService : INerService
         _pipeline.Add(AveragePerceptronEntityRecognizer.FromStoreAsync(Language.Russian, Version.Latest, "WikiNER").ConfigureAwait(false).GetAwaiter().GetResult());
     }
 
-    public IEnumerable<NamedEntityForm> GetNamedEntityFormsFromNews(News news)
+    public IEnumerable<string> GetNamedEntityFormsFromNews(string text)
     {
-        var doc = new Document(news.Text, Language.Russian);
+        var doc = new Document(text, Language.Russian);
         _pipeline.ProcessSingle(doc);
         doc.TokenizedValue(true);
 
         var namedEntityFormValueComparer = new NamedEntityFormValueComparer();
-        var hashSet = new HashSet<NamedEntityForm>(doc
+        var hashSet = new HashSet<string>(doc
             .SelectMany(span => span.GetEntities())
-            .Select(entity => new NamedEntityForm(entity.Value, new List<Guid> { news.Id })), namedEntityFormValueComparer);
+            .Select(entity => entity.Value));
 
         return hashSet;
     }

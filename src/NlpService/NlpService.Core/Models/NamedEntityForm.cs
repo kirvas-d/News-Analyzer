@@ -2,28 +2,24 @@
 
 public class NamedEntityForm
 {
-    private readonly HashSet<Guid> _newsIds;
-
-    public Guid Id { get; init; }
+    private readonly HashSet<News> _news;
 
     public NamedEntity? NamedEntity { get; init; }
 
     public string Value { get; init; }
 
-    public IReadOnlyCollection<Guid> NewsIds => _newsIds;
+    public IReadOnlyCollection<News> News => _news;
 
-    public NamedEntityForm(Guid id, string value, IEnumerable<Guid> newsIds)
+    private NamedEntityForm() { }
+
+    public NamedEntityForm(string value, IReadOnlyCollection<News> news)
     {
-        Id = id;
         Value = value;
-        _newsIds = new HashSet<Guid>(newsIds);
+        _news = new HashSet<News>(news);
     }
 
-    public NamedEntityForm(string value, IReadOnlyCollection<Guid> newsIds) : this(Guid.NewGuid(), value, newsIds)
-    { }
-
-    public void AddNewsId(Guid newsId)
+    public void AddNews(News news)
     {
-        _newsIds.Add(newsId);
+        _news.Add(news);
     }
 }

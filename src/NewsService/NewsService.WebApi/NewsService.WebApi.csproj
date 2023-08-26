@@ -20,8 +20,6 @@
   </ItemGroup>
 	
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\NewsAnalyzer.Core\NewsAnalyzer.Repository.csproj" />
-    <ProjectReference Include="..\..\Common\NewsAnalyzer.Repository\NewsAnalyzer.Repository.csproj" />
     <ProjectReference Include="..\..\Infrastructure\RabbitMqService\RabbitMqService.csproj" />
     <ProjectReference Include="..\NewsService.Core\NewsService.Core.csproj" />
     <ProjectReference Include="..\NewsService.Repository\NewsService.Repository.csproj" />
