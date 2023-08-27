@@ -1,9 +1,9 @@
-﻿using AuthenticationService.Core.Abstractions;
+﻿using ApiGateway.Models;
+using AuthenticationService.Core.Abstractions;
 using AuthenticationService.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-using NewsAnalyzer.ApiGateway.Models;
 
-namespace NewsAnalyzer.ApiGateway.Controllers;
+namespace ApiGateway.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -41,31 +41,4 @@ public class AuthenticationController : ControllerBase
         else
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
     }
-
-    //[HttpPost("BearerToken")]
-    //public async Task<ActionResult<AuthenticationResponse>> CreateBearerToken(AuthenticationRequest request)
-    //{
-    //    if (!ModelState.IsValid)
-    //    {
-    //        return BadRequest("Bad credentials");
-    //    }
-
-    //    var user = await _userManager.FindByNameAsync(request.UserName);
-
-    //    if (user == null)
-    //    {
-    //        return BadRequest("Bad credentials");
-    //    }
-
-    //    var isPasswordValid = await _userManager.CheckPasswordAsync(user, request.Password);
-
-    //    if (!isPasswordValid)
-    //    {
-    //        return BadRequest("Bad credentials");
-    //    }
-
-    //    var token = _jwtService.CreateToken(user);
-
-    //    return Ok(token);
-    //}
 }

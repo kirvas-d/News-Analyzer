@@ -1,5 +1,5 @@
+using ApiGateway.Extensions;
 using Grpc.Net.Client;
-using NewsAnalyzer.ApiGateway.Extensions;
 using static NewsAnalyzer.Application.NewsService.ApplicationNews;
 
 var builder = WebApplication.CreateBuilder(args);

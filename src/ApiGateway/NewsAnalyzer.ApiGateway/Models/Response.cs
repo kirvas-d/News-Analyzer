@@ -1,4 +1,4 @@
-﻿namespace NewsAnalyzer.ApiGateway.Models;
+﻿namespace ApiGateway.Models;
 
 public class Response
 {

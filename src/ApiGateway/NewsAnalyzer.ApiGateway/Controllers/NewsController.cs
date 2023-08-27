@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NewsAnalyzer.Application.NewsService;
 using static NewsAnalyzer.Application.NewsService.ApplicationNews;
 
-namespace NewsAnalyzer.ApiGateway.Controllers;
+namespace ApiGateway.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

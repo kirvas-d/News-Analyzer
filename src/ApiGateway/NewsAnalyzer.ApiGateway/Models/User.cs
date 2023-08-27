@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace NewsAnalyzer.ApiGateway.Models;
+namespace ApiGateway.Models;
 
 public class User
 {

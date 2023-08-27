@@ -8,7 +8,7 @@ using NewsAnalyzer.Infrastructure.IdentityAuthenticationService.Models;
 using NewsAnalyzer.Infrastructure.IdentityAuthenticationService.Services;
 using System.Text;
 
-namespace NewsAnalyzer.ApiGateway.Extensions;
+namespace ApiGateway.Extensions;
 
 public static class ConfigurationExtensions
 {

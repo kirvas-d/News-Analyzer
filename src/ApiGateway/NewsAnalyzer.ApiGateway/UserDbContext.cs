@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace NewsAnalyzer.ApiGateway;
+namespace ApiGateway;
 
 public class UserDbContext : IdentityDbContext<IdentityUser>
 {
