@@ -44,7 +44,14 @@ namespace NewsAnalyzer.Core.Services
             {
                 await _newsRepository.AddAsync(news);
                 await _newsRepository.SaveChangesAsync();
-                NewsLoaded?.Invoke(this, new NewsLoadedEventArgs { NewsId = news.Id });
+                NewsLoaded?.Invoke(this, new NewsLoadedEventArgs 
+                { 
+                    Id = news.Id, 
+                    PublishDate = news.PublishDate,
+                    SourceName = news.SourceName,
+                    Text = news.Text,
+                    Title = news.Title 
+                });
             }
         }
     }

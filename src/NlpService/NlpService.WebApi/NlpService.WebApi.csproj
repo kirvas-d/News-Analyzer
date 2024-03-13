@@ -10,6 +10,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\BackgroundNlpService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Services\BackgroundNlpService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
 	<Protobuf Include="Protos\application_news.proto" GrpcServices="Client" />
   </ItemGroup>
 
@@ -21,12 +29,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="MassTransit" Version="8.1.2" />
+    <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.2" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\RabbitMqService\RabbitMqService.csproj" />
     <ProjectReference Include="..\NlpService.Data\NlpService.Data.csproj" />
     <ProjectReference Include="..\NlpService.NerService\NlpService.NerService.csproj" />
     <ProjectReference Include="..\NlpService.SentimentAnalyzeService\NlpService.SentimentAnalyzeService.csproj" />

@@ -1,3 +1,4 @@
+using MassTransit;
 using NewsAnalyzer.Application.NewsService.Services;
 using NewsAnalyzer.Core.Services;
 using NewsService.Core.Abstractions;
@@ -21,6 +22,17 @@ builder.Services.AddSingleton<IHtmlLoader, PlayWrightHtmlLoader>();
 builder.Services.AddSingleton<INewsLoader, RssNewsLoader>();
 builder.Services.AddSingleton<INewsAsyncRepository, NewsEfCoreAsyncRepository>();
 builder.Services.AddSingleton<IMessengerPublishService<NewsLoadedEventArgs>, RabbitMqMessengerPublishService<NewsLoadedEventArgs>>();
+builder.Services.AddMassTransit(x =>
+{
+    //var entryAssembly = Assembly.GetEntryAssembly();
+    //x.AddConsumers(entryAssembly);
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host("192.168.0.171");
+        cfg.ConfigureEndpoints(context);
+    });
+});
+
 
 var app = builder.Build();
 
