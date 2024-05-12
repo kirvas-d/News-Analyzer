@@ -1,4 +1,4 @@
-﻿namespace NewsService.Core.Events;
+﻿namespace NewsService.Core.NewsLoader.Events;
 
 public class NewsLoadedEventArgs : EventArgs
 {

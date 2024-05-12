@@ -1,4 +1,4 @@
-﻿using NewsAnalyzer.Core.Services;
+﻿using NewsService.Core.HtmlLoader.Services;
 
 namespace NewsService.Core.Tests;
 

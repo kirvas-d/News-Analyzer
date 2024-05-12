@@ -2,8 +2,6 @@
 using Catalyst;
 using Mosaik.Core;
 using Version = Mosaik.Core.Version;
-using NlpService.Core.Models;
-using NewsService.Core.Models;
 using NlpService.Core.Abstractions;
 using NlpService.NerService.Helpers;
 

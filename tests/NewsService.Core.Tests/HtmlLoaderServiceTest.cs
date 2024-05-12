@@ -1,4 +1,4 @@
-﻿using NewsService.Core.Abstractions;
+﻿using NewsService.Core.HtmlLoader.Abstracts;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;

@@ -1,20 +1,17 @@
 ﻿using MassTransit;
 using NewsAnalyzer.Core.Services;
-using NewsService.Core.Events;
-using RabbitMqService.Abstractions;
+using NewsService.Core.NewsLoader.Events;
 
 namespace NewsAnalyzer.Application.NewsService.Services;
 
 public class BackgroundRssNewsDecoratorService : BackgroundService
 {
-    private readonly BackgroundRssNewsService _service;
-    private readonly IMessengerPublishService<NewsLoadedEventArgs> _messengerPublishService;
+    private readonly BackgroundNewsLoaderService _service;
     private readonly IBus _bus;
 
-    public BackgroundRssNewsDecoratorService(BackgroundRssNewsService service, IMessengerPublishService<NewsLoadedEventArgs> messengerPublishService, IBus bus)
+    public BackgroundRssNewsDecoratorService(BackgroundNewsLoaderService service, IBus bus)
     {
         _service = service;
-        _messengerPublishService = messengerPublishService;
         _bus = bus;
 
         _service.NewsLoaded += NewsLoaded;
@@ -22,7 +19,6 @@ public class BackgroundRssNewsDecoratorService : BackgroundService
 
     private async void NewsLoaded(object? sender, NewsLoadedEventArgs e)
     {
-        //_messengerPublishService.PublishMessage(e);
         await _bus.Publish(e);
     }
 

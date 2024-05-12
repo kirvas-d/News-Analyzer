@@ -4,30 +4,30 @@ using NlpService.Data.Abstractions;
 
 namespace NlpService.Data;
 
-public class NewsRepository : INewsRepository
+public class TextRepository : ITextRepository
 {
     private readonly NamedEntityDbContext _context;
 
-    public NewsRepository(NamedEntityDbContext namedEntityDbContext) 
+    public TextRepository(NamedEntityDbContext namedEntityDbContext) 
     {
         _context = namedEntityDbContext;
     }
 
-    public void Add(News news)
+    public void Add(Text news)
     {
-        _context.News.Add(news);
+        _context.Texts.Add(news);
     }
 
-    public News? GetById(Guid id)
+    public Text? GetById(Guid id)
     {
-        return _context.News
+        return _context.Texts
             .Include(e => e.NamedEntityForms)
             .FirstOrDefault(e => e.Id == id);
     }
 
-    public void Update(News news)
+    public void Update(Text news)
     {
-        _context.News.Update(news);
+        _context.Texts.Update(news);
     }
 
     public void SaveChanges()

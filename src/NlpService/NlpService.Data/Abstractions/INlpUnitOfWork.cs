@@ -6,5 +6,5 @@ public interface INlpUnitOfWork : IUnitOfWork
 {
     INamedEntityRepository NamedEntityRepository { get; }
     INamedEntityFormRepository NamedEntityFormRepository { get; }
-    INewsRepository NewsRepository { get; }
+    ITextRepository TextRepository { get; }
 }

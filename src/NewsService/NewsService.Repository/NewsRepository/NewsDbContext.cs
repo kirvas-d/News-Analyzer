@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewsService.Core.Models;
+using NewsService.Core.NewsLoader.Models;
 
 namespace NewsService.Repository.NewsRepository;
 

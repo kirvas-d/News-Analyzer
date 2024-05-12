@@ -1,4 +1,4 @@
-﻿namespace NewsService.Core.Models;
+﻿namespace NewsService.Core.NewsLoader.Models;
 
 public record NewsInfo(
     string RssUrl,

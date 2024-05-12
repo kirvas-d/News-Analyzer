@@ -7,20 +7,20 @@ public class NlpUnitOfWork : INlpUnitOfWork
     private readonly NamedEntityDbContext _context;
     private readonly INamedEntityRepository _namedEntityRepository;
     private readonly INamedEntityFormRepository _namedEntityFormRepository;
-    private readonly INewsRepository _newsRepository;
+    private readonly ITextRepository _textRepository;
 
     public INamedEntityRepository NamedEntityRepository => _namedEntityRepository;
 
     public INamedEntityFormRepository NamedEntityFormRepository => _namedEntityFormRepository;
 
-    public INewsRepository NewsRepository => _newsRepository;
+    public ITextRepository TextRepository => _textRepository;
 
     public NlpUnitOfWork(NamedEntityDbContext namedEntityDbContext)
     {
         _context = namedEntityDbContext;
         _namedEntityRepository = new NamedEntityRepository(namedEntityDbContext);
         _namedEntityFormRepository = new NamedEntityFormRepository(namedEntityDbContext);
-        _newsRepository = new NewsRepository(namedEntityDbContext);
+        _textRepository = new TextRepository(namedEntityDbContext);
     }
     public void Dispose()
     {

@@ -1,4 +1,4 @@
-﻿namespace NewsService.Core.Abstractions;
+﻿namespace NewsService.Core.HtmlLoader.Abstracts;
 
 public interface IHtmlLoader
 {

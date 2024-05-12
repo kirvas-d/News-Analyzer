@@ -1,4 +1,4 @@
-﻿namespace NewsService.Core.Abstractions;
+﻿namespace NewsService.Core.HtmlParsers.Abstracts;
 
 public interface IHtmlParser
 {

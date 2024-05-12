@@ -1,7 +1,7 @@
-﻿using NewsService.Core.Models;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
+using NewsService.Core.NewsLoader.Models;
 
-namespace NewsService.Core.Abstractions;
+namespace NewsService.Core.NewsLoader.Abstracts;
 
 public interface INewsAsyncRepository
 {

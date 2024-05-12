@@ -22,7 +22,7 @@ public class NamedEntityFormRepository : INamedEntityFormRepository
     {
         return _context.NamedEntityForms
             .Include(e => e.NamedEntity)
-            .Include(e => e.News)
+            .Include(e => e.Texts)
             .FirstOrDefault(e => e.Value == value);
     }
 

@@ -1,35 +1,24 @@
 ﻿using MassTransit;
-using NewsService.Core.Events;
+using NewsService.Core.NewsLoader.Events;
+using NewsService.Core.NewsLoader.Models;
 using NlpService.Core.Abstractions;
 using NlpService.Core.Models;
 using NlpService.Data.Abstractions;
-using RabbitMqService.Abstractions;
 
 namespace NlpService.WebApi.Services;
 
 public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
 {
     private readonly INerService _nerService;
-    private readonly ISentimentAnalyzeService _sentimentAnalyzeService;
-    //private readonly IMessengerConsumerService<NewsLoadedEventArgs> _messengerConsumerService;
-    //private readonly ApplicationNewsClient _applicationNewsClient;
     private readonly INlpUnitOfWork _nlpUnitOfWork;
     private readonly ILogger<NewsLoadedEventArgsConsumer> _logger;
 
-
-
     public NewsLoadedEventArgsConsumer(
         INerService nerService, 
-        ISentimentAnalyzeService sentimentAnalyzeService, 
-        IMessengerConsumerService<NewsLoadedEventArgs> messengerConsumerService, 
-        //ApplicationNewsClient applicationNewsClient, 
         INlpUnitOfWork nlpUnitOfWork, 
         ILogger<NewsLoadedEventArgsConsumer> logger)
     {
         _nerService = nerService;
-        _sentimentAnalyzeService = sentimentAnalyzeService;
-        //_messengerConsumerService = messengerConsumerService;
-        //_applicationNewsClient = applicationNewsClient;
         _nlpUnitOfWork = nlpUnitOfWork;
         _logger = logger;
     }
@@ -38,16 +27,12 @@ public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
     {
         try
         {
-            //var newsResponse = _applicationNewsClient.GetNews(new NewsRequest { Id = e.Message.NewsId.ToString() });
             var namedEntityValues = _nerService.GetNamedEntityFormsFromNews(context.Message.Text);
-            var sentimentResult = _sentimentAnalyzeService.Predict(context.Message.Text);
-
-            //var newsId = Guid.Parse(context.Message.Id);
-            var news = _nlpUnitOfWork.NewsRepository.GetById(context.Message.Id);
+            var news = _nlpUnitOfWork.TextRepository.GetById(context.Message.Id);
             if (news == null)
             {
-                news = new News(context.Message.Id, sentimentResult);
-                _nlpUnitOfWork.NewsRepository.Add(news);
+                news = new Text(context.Message.Id, null);
+                _nlpUnitOfWork.TextRepository.Add(news);
             }
 
             foreach (var value in namedEntityValues)
@@ -55,7 +40,7 @@ public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
                 var namedEntityForm = _nlpUnitOfWork.NamedEntityFormRepository.GetByValue(value);
                 if (namedEntityForm == null)
                 {
-                    namedEntityForm = new NamedEntityForm(value, new List<News> { news });
+                    namedEntityForm = new NamedEntityForm(value, new List<Text> { news });
                     _nlpUnitOfWork.NamedEntityFormRepository.Add(namedEntityForm);
                 }
                 else
@@ -65,8 +50,7 @@ public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
                 }
             }
 
-            _nlpUnitOfWork.SaveChanges();
-            //_messengerConsumerService.AcknowledgeConsumeMessage(e.DeliveryTag);           
+            _nlpUnitOfWork.SaveChanges();          
         }
         catch (Exception exception)
         {

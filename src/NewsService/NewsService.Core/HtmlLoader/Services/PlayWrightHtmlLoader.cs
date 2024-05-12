@@ -1,7 +1,7 @@
 ﻿using Microsoft.Playwright;
-using NewsService.Core.Abstractions;
+using NewsService.Core.HtmlLoader.Abstracts;
 
-namespace NewsAnalyzer.Core.Services;
+namespace NewsService.Core.HtmlLoader.Services;
 
 public class PlayWrightHtmlLoader : IHtmlLoader
 {
@@ -11,7 +11,7 @@ public class PlayWrightHtmlLoader : IHtmlLoader
     public PlayWrightHtmlLoader()
     {
         _playwright = Playwright.CreateAsync().GetAwaiter().GetResult();
-        _browser = _playwright.Chromium.LaunchAsync().GetAwaiter().GetResult();
+        _browser = _playwright.Firefox.LaunchAsync().GetAwaiter().GetResult();
     }
 
     public void Dispose()
@@ -24,7 +24,7 @@ public class PlayWrightHtmlLoader : IHtmlLoader
     {
         var page = await _browser.NewPageAsync();
         await page.GotoAsync(uri, new PageGotoOptions() { Timeout = 60000 });
-        await page.WaitForLoadStateAsync(LoadState.DOMContentLoaded, new PageWaitForLoadStateOptions() { Timeout = 60000 });
+        //await page.WaitForLoadStateAsync(LoadState.DOMContentLoaded, new PageWaitForLoadStateOptions() { Timeout = 60000 });
         var htmlContent = await page.ContentAsync();
         await page.CloseAsync();
 

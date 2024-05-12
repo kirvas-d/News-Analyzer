@@ -1,6 +1,6 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using NewsService.Core.Abstractions;
+using NewsService.Core.NewsLoader.Abstracts;
 
 namespace NewsAnalyzer.Application.NewsService.Services;
 

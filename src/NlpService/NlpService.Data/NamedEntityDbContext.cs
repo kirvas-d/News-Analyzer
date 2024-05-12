@@ -9,7 +9,7 @@ public class NamedEntityDbContext : DbContext
 {
     public DbSet<NamedEntity> NamedEntities { get; set; }
     public DbSet<NamedEntityForm> NamedEntityForms { get; set; }
-    public DbSet<News> News { get; set; }
+    public DbSet<Text> Texts { get; set; }
 
     public NamedEntityDbContext(DbContextOptions<NamedEntityDbContext> options) : base(options)
     {
@@ -20,11 +20,11 @@ public class NamedEntityDbContext : DbContext
     {
         var options = new JsonSerializerOptions(JsonSerializerDefaults.General);
 
-        modelBuilder.Entity<News>()
-            .Property(e => e.SentimentAnalyzeResult)
-            .HasConversion(new ValueConverter<SentimentAnalyzeResult, string>(
-                news => JsonSerializer.Serialize(news, options),
-                news => JsonSerializer.Deserialize<SentimentAnalyzeResult>(news, options)));
+        //modelBuilder.Entity<Text>()
+        //    .Property(e => e.SentimentAnalyzeResult)
+        //    .HasConversion(new ValueConverter<SentimentAnalyzeResult, string>(
+        //        news => JsonSerializer.Serialize(news, options),
+        //        news => JsonSerializer.Deserialize<SentimentAnalyzeResult>(news, options)));
 
         modelBuilder.Entity<NamedEntityForm>()
             .HasKey(e => e.Value);

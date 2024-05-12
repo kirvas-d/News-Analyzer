@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NewsAnalyzer.EfCoreRepository.Services;
-using NewsService.Core.Abstractions;
-using NewsService.Core.Models;
+using NewsService.Core.NewsLoader.Abstracts;
+using NewsService.Core.NewsLoader.Models;
 using System.Linq.Expressions;
 
 namespace NewsService.Repository.NewsRepository;
