@@ -7,6 +7,9 @@
     <UserSecretsId>b41e8f62-6001-4496-a743-0a6763d77e56</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+    <EnableSdkContainerDebugging>True</EnableSdkContainerDebugging>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +27,12 @@
   <ItemGroup>
     <ProjectReference Include="..\NewsService.Core\NewsService.Core.csproj" />
     <ProjectReference Include="..\NewsService.Repository\NewsService.Repository.csproj" />
+  </ItemGroup>
+	
+  <ItemGroup>
+    <ContainerEnvironmentVariable Include="ASPNETCORE_HTTPS_PORTS">
+      <Value>8081</Value>
+    </ContainerEnvironmentVariable>
   </ItemGroup>
 
 </Project>

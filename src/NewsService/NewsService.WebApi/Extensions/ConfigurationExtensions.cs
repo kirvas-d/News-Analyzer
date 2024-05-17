@@ -1,5 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using NewsService.Core.HtmlLoader.Models;
 using NewsService.Core.NewsLoader.Abstracts;
 using NewsService.Core.NewsLoader.Services;
 using NewsService.Core.Services;
@@ -14,6 +16,9 @@ public static class ConfigurationExtensions
         var rssNewsServiceConfiguration = new BackgroundNewsServiceConfiguration(TimeSpan.FromDays(1));
         services.AddSingleton(sp => rssNewsServiceConfiguration);
         services.AddSingleton<INewsLoader, LentaRssNewsLoader>();
+        services.AddSingleton<SeleniumHtmlLoaderConfiguration>(configuration
+            .GetSection(SeleniumHtmlLoaderConfiguration.SeleniumHtmlLoaderConfigurationKey)
+            .Get<SeleniumHtmlLoaderConfiguration>());
 
         services.AddMassTransit(x =>
         {

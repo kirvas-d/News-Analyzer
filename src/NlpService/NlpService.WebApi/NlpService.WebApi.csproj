@@ -7,6 +7,9 @@
     <UserSecretsId>44d64892-a08c-4eab-ae14-60c219c49728</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
+    <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+    <EnableSdkContainerDebugging>True</EnableSdkContainerDebugging>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,6 +42,12 @@
     <ProjectReference Include="..\NlpService.Data\NlpService.Data.csproj" />
     <ProjectReference Include="..\NlpService.NerService\NlpService.NerService.csproj" />
     <ProjectReference Include="..\NlpService.SentimentAnalyzeService\NlpService.SentimentAnalyzeService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ContainerEnvironmentVariable Include="ASPNETCORE_HTTPS_PORTS">
+      <Value>8081</Value>
+    </ContainerEnvironmentVariable>
   </ItemGroup>
 
 </Project>

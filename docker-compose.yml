@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  newsservice.webapi:
+    image: ${DOCKER_REGISTRY-}newsservicewebapi
+    build:
+      context: .
+      dockerfile: src/NewsService/NewsService.WebApi/Dockerfile
+
+  nlpservice.webapi:
+    image: ${DOCKER_REGISTRY-}nlpservicewebapi
+    build:
+      context: .
+      dockerfile: src/NlpService/NlpService.WebApi/Dockerfile
+
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+    ports:
+      - 5432:5432
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 5672:5672
+      - 15672:15672 
+
+
