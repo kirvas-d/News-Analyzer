@@ -14,7 +14,7 @@ public class SeleniumHtmlLoader : IHtmlLoader
     public SeleniumHtmlLoader(SeleniumHtmlLoaderConfiguration configuration) 
     {
         var options = GetDriverOptions(configuration.BrowserType);
-        _webDriver = new RemoteWebDriver(configuration.Uri, options);
+        _webDriver = new RemoteWebDriver(configuration.Uri, options.ToCapabilities(), TimeSpan.FromMinutes(5));
     }
 
     public Task<string> GetHtmlBodyAsync(string uri)

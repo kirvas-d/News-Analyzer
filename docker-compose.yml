@@ -3,30 +3,51 @@ version: '3.4'
 services:
   newsservice.webapi:
     image: ${DOCKER_REGISTRY-}newsservicewebapi
+    depends_on:
+      - database
+      - rabbitmq
+      - selenium-standalone-edge
     build:
       context: .
       dockerfile: src/NewsService/NewsService.WebApi/Dockerfile
+    volumes:
+      - "${ASPNETCORE_Certificate_Path_For_Docker}:/https/"
+    env_file:
+      - .env 
 
   nlpservice.webapi:
     image: ${DOCKER_REGISTRY-}nlpservicewebapi
+    depends_on:
+      - database
+      - rabbitmq 
     build:
       context: .
       dockerfile: src/NlpService/NlpService.WebApi/Dockerfile
+    volumes:
+      - "${ASPNETCORE_Certificate_Path_For_Docker}:/https/"
+    env_file:
+      - .env
 
   database:
     image: postgres
     restart: always
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
     ports:
       - 5432:5432
+    env_file:
+      - .env 
 
   rabbitmq:
     image: rabbitmq:3-management
     restart: always
     ports:
       - 5672:5672
-      - 15672:15672 
+      - 15672:15672
+      
+  selenium-standalone-edge:
+    image: selenium/standalone-edge
+    shm_size: 2gb
+    ports:
+      - 4444:4444
+      - 7900:7900
 
 

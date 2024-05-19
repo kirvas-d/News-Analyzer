@@ -1,10 +1,8 @@
-using MassTransit;
 using NewsAnalyzer.Application.NewsService.Services;
 using NewsAnalyzer.Core.Services;
 using NewsService.Core.HtmlLoader.Abstracts;
 using NewsService.Core.HtmlLoader.Services;
 using NewsService.Core.NewsLoader.Abstracts;
-using NewsService.Core.NewsLoader.Services;
 using NewsService.Repository.NewsRepository;
 using NewsService.WebApi.Extensions;
 

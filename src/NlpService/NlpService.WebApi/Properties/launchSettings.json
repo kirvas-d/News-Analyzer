@@ -13,6 +13,17 @@
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
       "environmentVariables": {
+        "ASPNETCORE_HTTPS_PORTS": "8083",
+        "ASPNETCORE_HTTP_PORTS": "8082"
+      },
+      "publishAllPorts": true,
+      "useSSL": true
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Docker",
+      "launchBrowser": true,
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
         "ASPNETCORE_HTTPS_PORTS": "8081",
         "ASPNETCORE_HTTP_PORTS": "8080"
       },
