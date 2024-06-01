@@ -1,11 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
 namespace NewsAnalyzer.EfCoreRepository.Services;
+
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 public class EfCoreRepository<TDbContext, TEntity, TId> : IDisposable
     where TDbContext : DbContext
-    where TEntity : class 
+    where TEntity : class
 {
     protected readonly DbSet<TEntity> _dbSet;
     protected TDbContext _context;
@@ -18,7 +18,7 @@ public class EfCoreRepository<TDbContext, TEntity, TId> : IDisposable
 
     public virtual void Add(TEntity entity)
     {
-        _context.Set<TEntity>().Add(entity);      
+        _context.Set<TEntity>().Add(entity);
     }
 
     public virtual void AddRange(IEnumerable<TEntity> entities)

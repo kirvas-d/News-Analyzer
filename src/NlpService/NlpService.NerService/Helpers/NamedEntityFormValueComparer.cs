@@ -1,7 +1,7 @@
-﻿using NlpService.Core.Models;
-using System.Diagnostics.CodeAnalysis;
-
 namespace NlpService.NerService.Helpers;
+
+using NlpService.Core.Models;
+using System.Diagnostics.CodeAnalysis;
 
 internal class NamedEntityFormValueComparer : IEqualityComparer<NamedEntityForm>
 {

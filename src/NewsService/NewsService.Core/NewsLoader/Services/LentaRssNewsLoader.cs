@@ -1,7 +1,7 @@
-﻿using NewsService.Core.HtmlLoader.Abstracts;
-using NewsService.Core.HtmlParsers;
-
 namespace NewsService.Core.NewsLoader.Services;
+
+using NewsService.Core.HtmlLoader.Abstracts;
+using NewsService.Core.HtmlParsers;
 
 public sealed class LentaRssNewsLoader : RssNewsLoaderBase
 {

@@ -1,4 +1,4 @@
-﻿namespace NlpService.Core.Models;
+namespace NlpService.Core.Models;
 
 public class Text
 {
@@ -8,9 +8,13 @@ public class Text
 
     public IReadOnlyList<NamedEntityForm> NamedEntityForms => _namedEntityForms;
 
-    private Text() { }
+    private Text()
+    {
+        Id = Guid.NewGuid();
+        _namedEntityForms = new List<NamedEntityForm>();
+    }
 
-    public Text(Guid id, SentimentAnalyzeResult sentimentAnalyzeResult, IEnumerable<NamedEntityForm>? namedEntityForms = null) 
+    public Text(Guid id, SentimentAnalyzeResult sentimentAnalyzeResult, IEnumerable<NamedEntityForm>? namedEntityForms = null)
     {
         Id = id;
         _namedEntityForms = new List<NamedEntityForm>();

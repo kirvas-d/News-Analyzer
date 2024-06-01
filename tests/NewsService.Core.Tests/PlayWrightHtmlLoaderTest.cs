@@ -1,6 +1,6 @@
-﻿using NewsService.Core.HtmlLoader.Services;
-
 namespace NewsService.Core.Tests;
+
+using NewsService.Core.HtmlLoader.Services;
 
 public class PlayWrightHtmlLoaderTest : HtmlLoaderServiceTest, IDisposable
 {

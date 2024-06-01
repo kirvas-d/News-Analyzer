@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+namespace ApiGateway;
+
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-
-namespace ApiGateway;
 
 public class UserDbContext : IdentityDbContext<IdentityUser>
 {

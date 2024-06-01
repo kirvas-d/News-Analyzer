@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NewsService.Core.NewsLoader.Models;
-
 namespace NewsService.Repository.NewsRepository;
+
+using Microsoft.EntityFrameworkCore;
+using NewsService.Core.NewsLoader.Models;
 
 public class NewsDbContext : DbContext
 {

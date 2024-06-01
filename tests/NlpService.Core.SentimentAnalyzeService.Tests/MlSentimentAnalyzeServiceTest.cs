@@ -1,8 +1,8 @@
-﻿using NlpService.Core.Abstractions;
+namespace NlpService.Core.SentimentAnalyzeService.Tests;
+
+using NlpService.Core.Abstractions;
 using NlpService.SentimentAnalyzeService.Models;
 using NlpService.SentimentAnalyzeService.Services;
-
-namespace NlpService.Core.SentimentAnalyzeService.Tests;
 
 public class SentimentAnalyzeServiceTest
 {

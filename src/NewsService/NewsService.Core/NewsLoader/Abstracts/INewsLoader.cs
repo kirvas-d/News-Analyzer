@@ -1,6 +1,6 @@
-﻿using NewsService.Core.NewsLoader.Models;
-
 namespace NewsService.Core.NewsLoader.Abstracts;
+
+using NewsService.Core.NewsLoader.Models;
 
 public interface INewsLoader
 {

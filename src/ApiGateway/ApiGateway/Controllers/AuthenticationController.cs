@@ -1,9 +1,9 @@
-﻿using ApiGateway.Models;
+namespace ApiGateway.Controllers;
+
+using ApiGateway.Models;
 using AuthenticationService.Core.Abstractions;
 using AuthenticationService.Core.Models;
 using Microsoft.AspNetCore.Mvc;
-
-namespace ApiGateway.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

@@ -1,10 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using NewsAnalyzer.EfCoreRepository.Services;
+namespace NewsService.Repository.NewsRepository;
+
+using Microsoft.EntityFrameworkCore;
 using NewsService.Core.NewsLoader.Abstracts;
 using NewsService.Core.NewsLoader.Models;
 using System.Linq.Expressions;
-
-namespace NewsService.Repository.NewsRepository;
 
 public class NewsEfCoreAsyncRepository : INewsAsyncRepository
 {
@@ -16,7 +15,7 @@ public class NewsEfCoreAsyncRepository : INewsAsyncRepository
 
     public async Task AddAsync(News news)
     {
-        await  _context.News.AddAsync(news);
+        await _context.News.AddAsync(news);
     }
 
     public async Task<News?> GetByIdAsync(Guid id)

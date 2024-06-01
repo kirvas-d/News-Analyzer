@@ -1,6 +1,6 @@
-﻿using NlpService.Core.Models;
-
 namespace NlpService.Data.Abstractions;
+
+using NlpService.Core.Models;
 
 public interface INamedEntityRepository
 {

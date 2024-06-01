@@ -1,6 +1,6 @@
-﻿using NlpService.Data.Abstractions;
-
 namespace NlpService.Data;
+
+using NlpService.Data.Abstractions;
 
 public class NlpUnitOfWork : INlpUnitOfWork
 {
@@ -22,6 +22,7 @@ public class NlpUnitOfWork : INlpUnitOfWork
         _namedEntityFormRepository = new NamedEntityFormRepository(namedEntityDbContext);
         _textRepository = new TextRepository(namedEntityDbContext);
     }
+
     public void Dispose()
     {
         _context.Dispose();

@@ -1,13 +1,13 @@
-﻿using AuthenticationService.Core.Abstractions;
+namespace AuthenticationService.IdentityAuthenticationService.Services;
+
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using AuthenticationService.Core.Abstractions;
 using AuthenticationService.Core.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using NewsAnalyzer.Infrastructure.IdentityAuthenticationService.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace NewsAnalyzer.Infrastructure.IdentityAuthenticationService.Services;
 
 public class IdentityAuthenticationService : IAuthenticationService
 {
@@ -31,16 +31,15 @@ public class IdentityAuthenticationService : IAuthenticationService
         IdentityUser user = new()
         {
             Email = userRegistrationDto.Email,
-            //SecurityStamp = Guid.NewGuid().ToString(),
-            UserName = userRegistrationDto.UserName
+            UserName = userRegistrationDto.UserName,
         };
         var result = await _userManager.CreateAsync(user, userRegistrationDto.Password);
         if (!result.Succeeded)
-            return new UserRegistrationResult(false, new List<string> { "User creation failed! Please check user details and try again." }); //StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+            return new UserRegistrationResult(false, new List<string> { "User creation failed! Please check user details and try again." });
 
         await CheckAndAddAdminRoleForFirstUser(user);
 
-        return new UserRegistrationResult(true, new List<string> { "User created successfully!" }); //Ok(new Response { Status = "Success", Message = "User created successfully!" });
+        return new UserRegistrationResult(true, new List<string> { "User created successfully!" });
     }
 
     public async Task<bool> ValidateUserAsync(UserLoginDto userLoginDto)
@@ -49,7 +48,7 @@ public class IdentityAuthenticationService : IAuthenticationService
 
         if (user != null && await _userManager.CheckPasswordAsync(user, userLoginDto.Password))
         {
-            var authClaims = new List<Claim>{ new Claim(ClaimTypes.Name, user.UserName) };
+            var authClaims = new List<Claim> { new Claim(ClaimTypes.Name, user.UserName) };
 
             var userRoles = await _userManager.GetRolesAsync(user);
             authClaims.AddRange(userRoles.Select(role => new Claim(ClaimTypes.Role, role)));
@@ -57,13 +56,8 @@ public class IdentityAuthenticationService : IAuthenticationService
             var token = GetToken(authClaims);
 
             return true;
-
-            //return Ok(new
-            //{
-            //    token = new JwtSecurityTokenHandler().WriteToken(token),
-            //    expiration = token.ValidTo
-            //});
         }
+
         return false;
     }
 
@@ -81,18 +75,15 @@ public class IdentityAuthenticationService : IAuthenticationService
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
-    private async Task CheckAndAddAdminRoleForFirstUser(IdentityUser user) 
+    private async Task CheckAndAddAdminRoleForFirstUser(IdentityUser user)
     {
         if (!await _roleManager.RoleExistsAsync(UserRoles.Admin))
             await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
         if (!await _roleManager.RoleExistsAsync(UserRoles.User))
             await _roleManager.CreateAsync(new IdentityRole(UserRoles.User));
 
-        //if (_userManager.Users.Count() == 1)
-        //{
-            await _userManager.AddToRoleAsync(user, UserRoles.Admin);
-            await _userManager.AddToRoleAsync(user, UserRoles.User);
-        //}
+        await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+        await _userManager.AddToRoleAsync(user, UserRoles.User);
     }
 
     private JwtSecurityToken GetToken(List<Claim> authClaims)
@@ -104,8 +95,7 @@ public class IdentityAuthenticationService : IAuthenticationService
             audience: _configuration.Audience,
             expires: DateTime.Now.AddHours(6),
             claims: authClaims,
-            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-            );
+            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256));
 
         return token;
     }

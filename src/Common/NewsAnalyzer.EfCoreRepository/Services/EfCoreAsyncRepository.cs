@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-
 namespace NewsAnalyzer.EfCoreRepository.Services;
+
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 
 public class EfCoreAsyncRepository<TEntity, TId> : IDisposable where TEntity : class
 {

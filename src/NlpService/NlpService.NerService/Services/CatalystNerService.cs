@@ -1,11 +1,11 @@
-﻿using Catalyst.Models;
+namespace NlpService.NerService.Services;
+
+using Catalyst.Models;
 using Catalyst;
 using Mosaik.Core;
 using Version = Mosaik.Core.Version;
 using NlpService.Core.Abstractions;
 using NlpService.NerService.Helpers;
-
-namespace NlpService.NerService.Services;
 
 public class CatalystNerService : INerService
 {

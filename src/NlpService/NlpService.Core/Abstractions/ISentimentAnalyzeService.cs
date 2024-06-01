@@ -1,6 +1,6 @@
-﻿using NlpService.Core.Models;
-
 namespace NlpService.Core.Abstractions;
+
+using NlpService.Core.Models;
 
 public interface ISentimentAnalyzeService
 {

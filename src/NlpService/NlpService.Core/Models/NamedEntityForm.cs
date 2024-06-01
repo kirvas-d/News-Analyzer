@@ -1,4 +1,4 @@
-﻿namespace NlpService.Core.Models;
+namespace NlpService.Core.Models;
 
 public class NamedEntityForm
 {
@@ -10,7 +10,11 @@ public class NamedEntityForm
 
     public IReadOnlyCollection<Text> Texts => _texts;
 
-    private NamedEntityForm() { }
+    private NamedEntityForm()
+    {
+        _texts = new HashSet<Text>();
+        Value = string.Empty;
+    }
 
     public NamedEntityForm(string value, IReadOnlyCollection<Text> news)
     {

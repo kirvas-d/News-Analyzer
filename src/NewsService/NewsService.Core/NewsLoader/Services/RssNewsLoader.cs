@@ -1,11 +1,11 @@
-﻿using NewsService.Core.HtmlLoader.Abstracts;
+namespace NewsService.Core.NewsLoader.Services;
+
+using System.ServiceModel.Syndication;
+using System.Xml;
+using NewsService.Core.HtmlLoader.Abstracts;
 using NewsService.Core.HtmlParsers.Abstracts;
 using NewsService.Core.NewsLoader.Abstracts;
 using NewsService.Core.NewsLoader.Models;
-using System.ServiceModel.Syndication;
-using System.Xml;
-
-namespace NewsService.Core.NewsLoader.Services;
 
 public abstract class RssNewsLoaderBase : INewsLoader
 {
@@ -32,10 +32,11 @@ public abstract class RssNewsLoaderBase : INewsLoader
             var links = item.Links.Where(link => !link.Uri.ToString().StartsWith("https://icdn"));
             foreach (var link in links)
             {
-                yield return new NewsInfo(_rssUrl,
-                                          link.Uri.ToString(),
-                                          item.Title.Text,
-                                          DateTime.SpecifyKind(item.PublishDate.DateTime, DateTimeKind.Utc));
+                yield return new NewsInfo(
+                    _rssUrl,
+                    link.Uri.ToString(),
+                    item.Title.Text,
+                    DateTime.SpecifyKind(item.PublishDate.DateTime, DateTimeKind.Utc));
             }
         }
     }
@@ -47,11 +48,12 @@ public abstract class RssNewsLoaderBase : INewsLoader
             var htmlBody = await _htmlLoader.GetHtmlBodyAsync(newsInfo.SourceName);
             var text = await _htmlParser.GetTextFromBody(htmlBody);
 
-            yield return new News(Guid.NewGuid(),
-                                  newsInfo.SourceName,
-                                  newsInfo.Title,
-                                  text,
-                                  newsInfo.PublishDate);
+            yield return new News(
+                Guid.NewGuid(),
+                newsInfo.SourceName,
+                newsInfo.Title,
+                text,
+                newsInfo.PublishDate);
         }
     }
 }

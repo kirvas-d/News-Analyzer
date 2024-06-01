@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
+namespace ApiGateway.Controllers;
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NewsAnalyzer.Application.NewsService;
 using static NewsAnalyzer.Application.NewsService.ApplicationNews;
-
-namespace ApiGateway.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -27,5 +27,4 @@ public class NewsController : ControllerBase
 
         return NotFound();
     }
-
 }

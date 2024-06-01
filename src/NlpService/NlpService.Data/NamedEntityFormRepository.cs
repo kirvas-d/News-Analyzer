@@ -1,14 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
+namespace NlpService.Data;
+
+using Microsoft.EntityFrameworkCore;
 using NlpService.Core.Models;
 using NlpService.Data.Abstractions;
-
-namespace NlpService.Data;
 
 public class NamedEntityFormRepository : INamedEntityFormRepository
 {
     private readonly NamedEntityDbContext _context;
 
-    public NamedEntityFormRepository(NamedEntityDbContext namedEntityDbContext) 
+    public NamedEntityFormRepository(NamedEntityDbContext namedEntityDbContext)
     {
         _context = namedEntityDbContext;
     }

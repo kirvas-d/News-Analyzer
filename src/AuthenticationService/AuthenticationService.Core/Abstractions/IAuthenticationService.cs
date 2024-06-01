@@ -1,6 +1,6 @@
-﻿using AuthenticationService.Core.Models;
-
 namespace AuthenticationService.Core.Abstractions;
+
+using AuthenticationService.Core.Models;
 
 public interface IAuthenticationService
 {

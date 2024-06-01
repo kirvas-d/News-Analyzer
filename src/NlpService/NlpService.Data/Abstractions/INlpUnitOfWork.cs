@@ -1,6 +1,6 @@
-﻿using NewsAnalyzer.Repository.Abstractions;
-
 namespace NlpService.Data.Abstractions;
+
+using NewsAnalyzer.Repository.Abstractions;
 
 public interface INlpUnitOfWork : IUnitOfWork
 {

@@ -1,10 +1,10 @@
-﻿using NewsService.Core.HtmlLoader.Abstracts;
+namespace NewsService.Core.Tests;
+
+using NewsService.Core.HtmlLoader.Abstracts;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 using WireMock.Settings;
-
-namespace NewsService.Core.Tests;
 
 public abstract class HtmlLoaderServiceTest
 {
@@ -19,7 +19,7 @@ public abstract class HtmlLoaderServiceTest
         _baseUrl = $"http://localhost:{port}";
         _wireMockServer = WireMockServer.Start(new WireMockServerSettings
         {
-            Urls = new string[] { _baseUrl }
+            Urls = new string[] { _baseUrl },
         });
     }
 
@@ -43,7 +43,6 @@ public abstract class HtmlLoaderServiceTest
         string actualResponse = await _htmlLoaderService.GetHtmlBodyAsync(_baseUrl);
 
         Assert.Equal(responseBody, actualResponse);
-
     }
 
     private void InitMockServerHtmlResponse(IWireMockServer wireMockServer, string responseBody)

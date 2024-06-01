@@ -1,13 +1,12 @@
-﻿using MassTransit;
+namespace NewsService.WebApi.Extensions;
+
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using NewsService.Core.HtmlLoader.Models;
 using NewsService.Core.NewsLoader.Abstracts;
 using NewsService.Core.NewsLoader.Services;
 using NewsService.Core.Services;
 using NewsService.Repository.NewsRepository;
-
-namespace NewsService.WebApi.Extensions;
 
 public static class ConfigurationExtensions
 {

@@ -1,14 +1,14 @@
-﻿using AuthenticationService.Core.Abstractions;
+namespace ApiGateway.Extensions;
+
+using System.Text;
+using AuthenticationService.Core.Abstractions;
+using AuthenticationService.IdentityAuthenticationService.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using NewsAnalyzer.Infrastructure.IdentityAuthenticationService.Models;
-using NewsAnalyzer.Infrastructure.IdentityAuthenticationService.Services;
-using System.Text;
-
-namespace ApiGateway.Extensions;
 
 public static class ConfigurationExtensions
 {
@@ -23,7 +23,7 @@ public static class ConfigurationExtensions
                 Scheme = "Bearer",
                 BearerFormat = "JWT",
                 In = ParameterLocation.Header,
-                Description = "JWT Authorization header using the Bearer scheme."
+                Description = "JWT Authorization header using the Bearer scheme.",
             });
 
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -34,15 +34,14 @@ public static class ConfigurationExtensions
                     Reference = new OpenApiReference
                     {
                         Type = ReferenceType.SecurityScheme,
-                        Id = "Bearer"
-                    }
+                        Id = "Bearer",
+                    },
                 },
-                new string[] {}
-            }
+                new string[] { }
+            },
         });
         });
     }
-
 
     public static void AddAuthenticationServices(this IServiceCollection services, IConfiguration configuration)
     {
@@ -85,5 +84,4 @@ public static class ConfigurationExtensions
     {
         services.AddDbContext<UserDbContext>(options => options.UseNpgsql(configuration["UserDb:ConnectionString"]));
     }
-
 }

@@ -1,11 +1,10 @@
-﻿using MassTransit;
+namespace NlpService.WebApi.Services;
+
+using MassTransit;
 using NewsService.Core.NewsLoader.Events;
-using NewsService.Core.NewsLoader.Models;
 using NlpService.Core.Abstractions;
 using NlpService.Core.Models;
 using NlpService.Data.Abstractions;
-
-namespace NlpService.WebApi.Services;
 
 public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
 {
@@ -14,8 +13,8 @@ public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
     private readonly ILogger<NewsLoadedEventArgsConsumer> _logger;
 
     public NewsLoadedEventArgsConsumer(
-        INerService nerService, 
-        INlpUnitOfWork nlpUnitOfWork, 
+        INerService nerService,
+        INlpUnitOfWork nlpUnitOfWork,
         ILogger<NewsLoadedEventArgsConsumer> logger)
     {
         _nerService = nerService;
@@ -50,7 +49,7 @@ public class NewsLoadedEventArgsConsumer : IConsumer<NewsLoadedEventArgs>
                 }
             }
 
-            _nlpUnitOfWork.SaveChanges();          
+            _nlpUnitOfWork.SaveChanges();
         }
         catch (Exception exception)
         {

@@ -1,9 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+namespace NlpService.Data;
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NlpService.Core.Models;
 using System.Text.Json;
-
-namespace NlpService.Data;
 
 public class NamedEntityDbContext : DbContext
 {

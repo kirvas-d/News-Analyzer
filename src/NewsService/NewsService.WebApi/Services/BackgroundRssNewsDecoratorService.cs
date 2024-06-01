@@ -1,8 +1,8 @@
-﻿using MassTransit;
+namespace NewsAnalyzer.Application.NewsService.Services;
+
+using MassTransit;
 using NewsAnalyzer.Core.Services;
 using NewsService.Core.NewsLoader.Events;
-
-namespace NewsAnalyzer.Application.NewsService.Services;
 
 public class BackgroundRssNewsDecoratorService : BackgroundService
 {

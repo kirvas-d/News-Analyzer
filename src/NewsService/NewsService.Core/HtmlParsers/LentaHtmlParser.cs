@@ -1,7 +1,7 @@
-﻿using AngleSharp;
-using NewsService.Core.HtmlParsers.Abstracts;
-
 namespace NewsService.Core.HtmlParsers;
+
+using AngleSharp;
+using NewsService.Core.HtmlParsers.Abstracts;
 
 public class LentaHtmlParser : IHtmlParser
 {

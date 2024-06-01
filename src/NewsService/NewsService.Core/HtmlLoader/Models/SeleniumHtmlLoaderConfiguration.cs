@@ -1,6 +1,6 @@
-﻿namespace NewsService.Core.HtmlLoader.Models;
+namespace NewsService.Core.HtmlLoader.Models;
 
-public enum BrowserType 
+public enum BrowserType
 {
     Chrome,
     Edge,
