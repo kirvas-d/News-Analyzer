@@ -4,6 +4,7 @@ public enum BrowserType
 {
     Chrome,
     Edge,
+    Firefox,
 }
 
 public class SeleniumHtmlLoaderConfiguration

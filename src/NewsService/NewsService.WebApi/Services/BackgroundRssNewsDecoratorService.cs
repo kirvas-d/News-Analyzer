@@ -1,8 +1,8 @@
-namespace NewsAnalyzer.Application.NewsService.Services;
-
+using NewsService.Core.NewsLoader.Events;
 using MassTransit;
 using NewsAnalyzer.Core.Services;
-using NewsService.Core.NewsLoader.Events;
+
+namespace NewsAnalyzer.Application.NewsService.Services;
 
 public class BackgroundRssNewsDecoratorService : BackgroundService
 {
@@ -25,7 +25,7 @@ public class BackgroundRssNewsDecoratorService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         while (!stoppingToken.IsCancellationRequested)
-        {        
+        {
             await _service.StartAsync(stoppingToken);
             await Task.Delay(TimeSpan.FromDays(1));
         }

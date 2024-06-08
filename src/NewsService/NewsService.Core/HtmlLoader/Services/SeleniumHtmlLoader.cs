@@ -1,13 +1,14 @@
-namespace NewsService.Core.HtmlLoader.Services;
-
 using NewsService.Core.HtmlLoader.Abstracts;
 using NewsService.Core.HtmlLoader.Models;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 
-public class SeleniumHtmlLoader : IHtmlLoader
+namespace NewsService.Core.HtmlLoader.Services;
+
+public class SeleniumHtmlLoader : IHtmlLoader, IDisposable
 {
     private readonly IWebDriver _webDriver;
 
@@ -27,6 +28,12 @@ public class SeleniumHtmlLoader : IHtmlLoader
     {
         BrowserType.Chrome => new ChromeOptions(),
         BrowserType.Edge => new EdgeOptions(),
+        BrowserType.Firefox => new FirefoxOptions(),
         _ => throw new NotImplementedException(),
     };
+
+    public void Dispose()
+    {
+        _webDriver?.Dispose();
+    }
 }

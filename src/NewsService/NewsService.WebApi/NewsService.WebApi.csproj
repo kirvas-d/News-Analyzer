@@ -13,10 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="Protos\application_news.proto" GrpcServices="Server" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
     <PackageReference Include="MassTransit" Version="8.1.2" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.2" />

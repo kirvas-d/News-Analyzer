@@ -23,19 +23,22 @@ public class BackgroundNewsLoaderService : BackgroundService
         _configuration = configuration;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellationToken.IsCancellationRequested)
         {
-            await ExecuteLoadNewsAsync();
-            await Task.Delay(_configuration.ScaningIntervalTime, stoppingToken);
+            await ExecuteLoadNewsAsync(cancellationToken);
+            await Task.Delay(_configuration.ScaningIntervalTime, cancellationToken);
         }
     }
 
-    private async Task ExecuteLoadNewsAsync()
+    private async Task ExecuteLoadNewsAsync(CancellationToken cancellationToken)
     {
         foreach (var newsLoader in _newsLoaders)
         {
+            if (cancellationToken.IsCancellationRequested)
+                return;
+
             var newsInfos = newsLoader.GetNewsInfos();
             var exsistedNews = await _newsRepository
                 .GetWhereAsync(news => newsInfos
@@ -49,6 +52,9 @@ public class BackgroundNewsLoaderService : BackgroundService
 
             await foreach (var news in newsLoader.LoadNewsAsync(newNewsInfos))
             {
+                if (cancellationToken.IsCancellationRequested)
+                    return;
+
                 await _newsRepository.AddAsync(news);
                 await _newsRepository.SaveChangesAsync();
                 NewsLoaded?.Invoke(this, new NewsLoadedEventArgs

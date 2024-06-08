@@ -54,7 +54,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решен
 		.editorconfig = .editorconfig
 		.env = .env
 		Directory.Build.props = Directory.Build.props
-		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Global
